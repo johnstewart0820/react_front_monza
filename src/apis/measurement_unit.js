@@ -2,6 +2,24 @@ import axios from 'axios';
 import authHeader from './auth-header';
 import storage from '../utils/storage';
 class MeasurementUnit {
+    getInfo = (id) => {
+        return axios
+            .get(`${process.env.REACT_APP_BACKEND_URL}/measurement_unit/info`, {
+                headers: authHeader(storage.getStorage('token')),
+            })
+            .then(response => {
+                if (response.data.code === 401) {
+                    storage.removeStorage('token');
+                    storage.removeStorage('role');
+                    return response.data;
+                } else if (response.data.code === 200) {
+                    return response.data;
+                }
+            }).catch(error => {
+                return error;
+            })
+    }
+
     get = (id) => {
         return axios
             .get(`${process.env.REACT_APP_BACKEND_URL}/measurement_unit`, {

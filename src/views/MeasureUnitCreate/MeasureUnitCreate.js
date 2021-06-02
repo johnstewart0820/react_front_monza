@@ -11,6 +11,21 @@ const MeasureUnitCreate = props => {
 	const { addToast } = useToasts()
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Jednostki miary', 'Dodaj nowy/Edytuj'];
 	const [data, setData] = useState({});
+	const [listInfo, setListInfo] = useState({ typeList: [] })
+
+	useEffect(() => {
+		measurement_unit
+			.getInfo()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						setListInfo(response.data);
+					}
+				}
+			})
+	}, []);
 
 	const handleSave = () => {
 		measurement_unit
@@ -38,6 +53,7 @@ const MeasureUnitCreate = props => {
 			<BreadcrumbBack list={breadcrumb} back_url="/measure_unit" />
 			<SingleDetail title="Dane dotyczące jednostki" handleSave={handleSave}>
 				<React.Fragment>
+					<FormInput title="Jednostka" name="type" type="single" value={data.type} list={listInfo.typeList} handleChange={handleChange} />
 					<FormInput title="Nazwa jednostki" name="name" type="input" value={data.name} handleChange={handleChange} />
 					<FormInput title="Opis" name="description" type="area" value={data.description} handleChange={handleChange} />
 				</React.Fragment>

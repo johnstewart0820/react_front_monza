@@ -13,7 +13,22 @@ const MeasureUnitEdit = props => {
 	const id = props.match.params.id;
 
 	const [data, setData] = useState({});
+	const [listInfo, setListInfo] = useState({ typeList: [] })
 
+	useEffect(() => {
+		measurement_unit
+			.getInfo()
+			.then(response => {
+				if (response.code === 401) {
+					history.push('/login');
+				} else {
+					if (response.code === 200) {
+						setListInfo(response.data);
+					}
+				}
+			})
+	}, []);
+	
 	useEffect(() => {
 		measurement_unit.get(id)
 			.then(response => {
@@ -67,6 +82,7 @@ const MeasureUnitEdit = props => {
 			<BreadcrumbBack list={breadcrumb} back_url="/measure_unit" />
 			<SingleDetail title="Dane dotyczące jednostki" type="edit" handleSave={handleSave} handleDelete={handleDelete}>
 				<React.Fragment>
+					<FormInput title="Jednostka" name="type" type="single" value={data.type} list={listInfo.typeList} handleChange={handleChange} />
 					<FormInput title="Nazwa jednostki" name="name" type="input" value={data.name} handleChange={handleChange} />
 					<FormInput title="Opis" name="description" type="area" value={data.description} handleChange={handleChange} />
 				</React.Fragment>

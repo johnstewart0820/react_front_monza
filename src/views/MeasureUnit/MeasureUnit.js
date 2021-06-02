@@ -19,12 +19,27 @@ const MeasureUnit = props => {
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Jednostki miary'];
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({name: '', description: '', active: 0});
-	const [listInfo, setListInfo] = useState({})
+	const [searchOption, setSearchOption] = useState({id: '', type: 0, name: '', description: ''});
+	const [listInfo, setListInfo] = useState({typeList: []})
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
 	const [progressStatus, setProgressStatus] = useState(false);
+
+	useEffect(() => {
+		measurement_unit
+		.getInfo()
+		.then(response => {
+			if (response.code === 401) {
+				history.push('/login');
+			} else {
+				if (response.code === 200) {
+					setListInfo({ ...listInfo, typeList: response.data.typeList });
+				}
+			}
+		})
+	}, []);
+
 	useEffect(() => {
 		handleSearch();
 	}, [sortOption, page]);

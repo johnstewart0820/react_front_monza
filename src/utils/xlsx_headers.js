@@ -193,6 +193,10 @@ const contractor_header = [
 
 const measure_unit_header = [
   {
+    header: 'Jednostka',
+    attr: 'type_name'
+  },
+  {
     header: 'Nazwa',
     attr: 'name'
   }, {

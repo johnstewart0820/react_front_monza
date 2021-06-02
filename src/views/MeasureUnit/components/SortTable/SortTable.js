@@ -47,7 +47,7 @@ const SortTable = (props) => {
                 onClick={() => requestSort(0)}
               >
                 ID
-            </TableSortLabel>
+              </TableSortLabel>
             </TableCell>
             <TableCell>
               <TableSortLabel
@@ -55,8 +55,8 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(1)}
               >
-                Nazwa
-            </TableSortLabel>
+                Jednostka
+              </TableSortLabel>
             </TableCell>
             <TableCell>
               <TableSortLabel
@@ -64,19 +64,37 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(2)}
               >
+                Nazwa
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortOption.sortBy === 3}
+                direction={sortOption.sortOrder}
+                onClick={() => requestSort(3)}
+              >
                 Opis
-            </TableSortLabel>
+              </TableSortLabel>
             </TableCell>
             <TableCell>
               <TableSortLabel align="right">
                 Akcje
-            </TableSortLabel>
+              </TableSortLabel>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell></TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+            </TableCell>
+            <TableCell>
+              <SingleSelect
+                value={searchOption.type}
+                handleChange={(value) => setSearchOption({ ...searchOption, type: value })}
+                list={listInfo.typeList}
+              />
+            </TableCell>
             <TableCell>
               <input className={global_classes.input_box} value={searchOption.name} onChange={(e) => setSearchOption({ ...searchOption, name: e.target.value })} />
             </TableCell>
@@ -89,6 +107,7 @@ const SortTable = (props) => {
             return (
               <TableRow key={indx} className={global_classes.root}>
                 <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.id}</TableCell>
+                <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.type_name}</TableCell>
                 <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.name}</TableCell>
                 <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.description}</TableCell>
                 <TableCell>
