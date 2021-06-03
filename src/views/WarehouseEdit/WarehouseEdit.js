@@ -17,11 +17,9 @@ const WarehouseEdit = props => {
 	useEffect(() => {
 		warehouse.get(id)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
+				if (response.code !== 401) {
 					setData(response.data);
-				}
+				} 
 			})
 	}, []);
 
@@ -31,7 +29,6 @@ const WarehouseEdit = props => {
 			.then(response => {
 				if (response.code === 401) {
 					addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
-					setTimeout(function () { history.push('/login') }, 3000);
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
@@ -47,13 +44,9 @@ const WarehouseEdit = props => {
 		warehouse
 			.delete(id)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/warehouse') }, 1000);
-					}
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+					setTimeout(function () { history.push('/warehouse') }, 1000);
 				}
 			})
 	}

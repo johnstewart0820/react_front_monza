@@ -35,12 +35,8 @@ const WarehouseOperation = props => {
 		warehouse_operation
 			.getInfo()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setListInfo(response.data);
-					}
+				if (response.code === 200) {
+					setListInfo(response.data);
 				}
 			})
 	}, []);
@@ -65,15 +61,11 @@ const WarehouseOperation = props => {
 		warehouse_operation
 		.create_list(rows)
 		.then(response => {
-			if (response.code === 401) {
-				history.push('/login');
-			} else {
-				if (response.code === 200) {
-					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					handleSearch();
-				}
-				setProgressStatus(false);
+			if (response.code === 200) {
+				addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+				handleSearch();
 			}
+			setProgressStatus(false);
 		})
 
 	}
@@ -83,14 +75,10 @@ const WarehouseOperation = props => {
 		warehouse_operation
 			.export()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						main.export(warehouse_operation_header, response.data);
-					}
-					setProgressStatus(false);
+				if (response.code === 200) {
+					main.export(warehouse_operation_header, response.data);
 				}
+				setProgressStatus(false);
 			})
 	}
 
@@ -110,15 +98,11 @@ const WarehouseOperation = props => {
 		warehouse_operation
 			.delete(index)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					}
-					handleSearch();
-					setPage(1);
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
 				}
+				handleSearch();
+				setPage(1);
 			})
 	}
 
@@ -126,13 +110,9 @@ const WarehouseOperation = props => {
 		warehouse_operation
 			.getListByOption(sortOption, 25, page, searchOption)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setData(response.data.list);
-						setTotal(response.data.count);
-					}
+				if (response.code === 200) {
+					setData(response.data.list);
+					setTotal(response.data.count);
 				}
 			})
 	}

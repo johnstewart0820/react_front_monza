@@ -19,12 +19,8 @@ const AssortmentGroupEdit = props => {
 		assortment_group
 			.getInfo()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setListInfo(response.data);
-					}
+				if (response.code === 200) {
+					setListInfo(response.data);
 				}
 			})
 	}, []);
@@ -32,9 +28,7 @@ const AssortmentGroupEdit = props => {
 	useEffect(() => {
 		assortment_group.get(id)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
+				if (response.code !== 401) {
 					setData(response.data);
 				}
 			})
@@ -46,7 +40,6 @@ const AssortmentGroupEdit = props => {
 			.then(response => {
 				if (response.code === 401) {
 					addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
-					setTimeout(function () { history.push('/login') }, 3000);
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
@@ -62,13 +55,9 @@ const AssortmentGroupEdit = props => {
 		assortment_group
 			.delete(id)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/group_assortment') }, 1000);
-					}
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+					setTimeout(function () { history.push('/group_assortment') }, 1000);
 				}
 			})
 	}

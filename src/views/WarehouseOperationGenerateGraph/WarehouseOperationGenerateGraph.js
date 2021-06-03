@@ -18,12 +18,8 @@ const WarehouseOperationGenerateGraph = props => {
 		warehouse_operation
 			.getInfo()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setListInfo(response.data);
-					}
+				if (response.code === 200) {
+					setListInfo(response.data);
 				}
 			})
 	}, []);

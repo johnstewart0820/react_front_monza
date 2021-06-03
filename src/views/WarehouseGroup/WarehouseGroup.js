@@ -45,14 +45,10 @@ const WarehouseGroup = props => {
 		warehousegroup
 		.create_list(rows)
 		.then(response => {
-			if (response.code === 401) {
-				history.push('/login');
-			} else {
-				if (response.code === 200) {
-					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					handleSearch();
-					setProgressStatus(false);
-				}
+			if (response.code === 200) {
+				addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+				handleSearch();
+				setProgressStatus(false);
 			}
 		})
 	}
@@ -62,14 +58,10 @@ const WarehouseGroup = props => {
 		warehousegroup
 			.export()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						main.export(warehouse_group_header, response.data);
-					}
-					setProgressStatus(false);
+				if (response.code === 200) {
+					main.export(warehouse_group_header, response.data);
 				}
+				setProgressStatus(false);
 			})
 	}
 	
@@ -86,15 +78,11 @@ const WarehouseGroup = props => {
 		warehousegroup
 			.delete(index)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					}
-					handleSearch();
-					setPage(1);
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
 				}
+				handleSearch();
+				setPage(1);
 			})
 	}
 
@@ -102,13 +90,9 @@ const WarehouseGroup = props => {
 		warehousegroup
 			.getListByOption(sortOption, 25, page, searchOption)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setData(response.data.list);
-						setTotal(response.data.count);
-					}
+				if (response.code === 200) {
+					setData(response.data.list);
+					setTotal(response.data.count);
 				}
 			})
 	}

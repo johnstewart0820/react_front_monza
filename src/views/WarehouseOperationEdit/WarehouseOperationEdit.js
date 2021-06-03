@@ -19,12 +19,8 @@ const WarehouseOperationEdit = props => {
 		warehouse_operation
 			.getInfo()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setListInfo(response.data);
-					}
+				if (response.code === 200) {
+					setListInfo(response.data);
 				}
 			})
 	}, []);
@@ -32,9 +28,7 @@ const WarehouseOperationEdit = props => {
 	useEffect(() => {
 		warehouse_operation.get(id)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
+				if (response.code !== 401) {
 					setData(response.data);
 				}
 			})
@@ -63,8 +57,7 @@ const WarehouseOperationEdit = props => {
 			.update(data, id)
 			.then(response => {
 				if (response.code === 401) {
-					addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
-					setTimeout(function () { history.push('/login') }, 3000);
+					addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
@@ -84,13 +77,9 @@ const WarehouseOperationEdit = props => {
 		warehouse_operation
 			.delete(id)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/warehouse_operation') }, 1000);
-					}
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+					setTimeout(function () { history.push('/warehouse_operation') }, 1000);
 				}
 			})
 	}

@@ -49,7 +49,6 @@ const Forgot = props => {
 					if (response.code === 200) {
 						setProgressStatus(false);
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/login') }, 1000);
 					} else {
 						setProgressStatus(false);
 						addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })

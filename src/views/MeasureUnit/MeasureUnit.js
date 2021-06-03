@@ -30,12 +30,8 @@ const MeasureUnit = props => {
 		measurement_unit
 		.getInfo()
 		.then(response => {
-			if (response.code === 401) {
-				history.push('/login');
-			} else {
-				if (response.code === 200) {
-					setListInfo({ ...listInfo, typeList: response.data.typeList });
-				}
+			if (response.code === 200) {
+				setListInfo({ ...listInfo, typeList: response.data.typeList });
 			}
 		})
 	}, []);
@@ -58,14 +54,10 @@ const MeasureUnit = props => {
 		measurement_unit
 		.create_list(rows)
 		.then(response => {
-			if (response.code === 401) {
-				history.push('/login');
-			} else {
-				if (response.code === 200) {
-					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					handleSearch();
-					setProgressStatus(false);
-				}
+			if (response.code === 200) {
+				addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+				handleSearch();
+				setProgressStatus(false);
 			}
 		})
 	}
@@ -75,14 +67,10 @@ const MeasureUnit = props => {
 		measurement_unit
 			.export()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						main.export(measure_unit_header, response.data);
-					}
-					setProgressStatus(false);
+				if (response.code === 200) {
+					main.export(measure_unit_header, response.data);
 				}
+				setProgressStatus(false);
 			})
 	}
 	
@@ -99,15 +87,11 @@ const MeasureUnit = props => {
 		measurement_unit
 			.delete(index)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					}
-					handleSearch();
-					setPage(1);
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
 				}
+				handleSearch();
+				setPage(1);
 			})
 	}
 
@@ -115,13 +99,9 @@ const MeasureUnit = props => {
 		measurement_unit
 			.getListByOption(sortOption, 25, page, searchOption)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setData(response.data.list);
-						setTotal(response.data.count);
-					}
+				if (response.code === 200) {
+					setData(response.data.list);
+					setTotal(response.data.count);
 				}
 			})
 	}

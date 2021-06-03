@@ -17,12 +17,8 @@ const WarehouseGroupCreate = props => {
 		warehousegroup
 			.getInfo()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setListInfo(response.data);
-					}
+				if (response.code === 200) {
+					setListInfo(response.data);
 				}
 			})
 	}, []);
@@ -33,7 +29,6 @@ const WarehouseGroupCreate = props => {
 			.then(response => {
 				if (response.code === 401) {
 					addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
-					setTimeout(function () { history.push('/login') }, 3000);
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })

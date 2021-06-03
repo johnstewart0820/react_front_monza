@@ -18,7 +18,6 @@ const WarehouseCreate = props => {
 			.then(response => {
 				if (response.code === 401) {
 					addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
-					setTimeout(function () { history.push('/login')}, 3000);
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
