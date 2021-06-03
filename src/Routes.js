@@ -39,6 +39,12 @@ import {
   NotFound as NotFoundView,
 } from './views';
 
+
+const ROUTES = {
+	// Assortment: "/assortment",
+
+}
+
 const Routes = (props) => {
   return (
     <Switch>
