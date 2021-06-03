@@ -3,25 +3,22 @@ import { withRouter } from "react-router";
 import auth from './apis/auth';
 import constants from './utils/constants';
 
+import API from "./apis/API";
+
 class AppContainer extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = { permission: false };
-	}
+
+	state = { permission: false };
 
 	checkValidity() {
-		if (constants.unauthenticated_url.indexOf(this.props.location.pathname) !== -1) {
+		if ( constants.unauthenticated_url.indexOf(this.props.location.pathname) !== -1) {
 			this.setState({ permission: 1 });
+
 		} else {
 			auth
 				.validateToken()
-				.then(response => {
-					if (response.code !== 401) {
+				.then( response => {
+					if ( response.code !== 401 ) {
 						this.setState({ permission: 1});
-					}
-					else {
-						this.setState({ permission: 0});
-						this.props.history.push('/login');
 					}
 				})
 		}
@@ -29,16 +26,20 @@ class AppContainer extends React.Component {
 
 	componentDidMount() {
 		this.checkValidity();
+
+		API.interceptors.response.use( res => {
+			if ( res.data.code === 401 ) {
+				this.setState({ permission: 0 });
+				this.props.history.push('/login');
+			}
+
+			return res;
+		});
 	}
 
-	componentDidUpdate(prevProps) {
-		if (this.props.location.pathname !== prevProps.location.pathname) {
-			this.checkValidity();
-		}
-	}
+	
 	render() {
-		return this.state.permission !== false &&
-			React.cloneElement(this.props.children)
+		return this.props.children;
 	}
 }
 

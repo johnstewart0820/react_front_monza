@@ -33,12 +33,8 @@ const Assortment = props => {
 		assortment
 			.getInfo()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setListInfo({ ...listInfo, unitList: response.data.unitList, measureUnitList: response.data.measureUnitList });
-					}
+				if (response.code === 200) {
+					setListInfo({ ...listInfo, unitList: response.data.unitList, measureUnitList: response.data.measureUnitList });
 				}
 			})
 	}, []);
@@ -61,15 +57,11 @@ const Assortment = props => {
 		assortment
 			.create_list(rows)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						handleSearch();
-					}
-					setProgressStatus(false);
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
+					handleSearch();
 				}
+				setProgressStatus(false);
 			})
 	}
 
@@ -78,14 +70,10 @@ const Assortment = props => {
 		assortment
 			.export()
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						main.export(assortment_header, response.data);
-					}
-					setProgressStatus(false);
+				if (response.code === 200) {
+					main.export(assortment_header, response.data);
 				}
+				setProgressStatus(false);
 			})
 	}
 
@@ -102,15 +90,11 @@ const Assortment = props => {
 		assortment
 			.delete(index)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					}
-					handleSearch();
-					setPage(1);
+				if (response.code === 200) {
+					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
 				}
+				handleSearch();
+				setPage(1);
 			})
 	}
 
@@ -118,13 +102,9 @@ const Assortment = props => {
 		assortment
 			.getListByOption(sortOption, 25, page, searchOption)
 			.then(response => {
-				if (response.code === 401) {
-					history.push('/login');
-				} else {
-					if (response.code === 200) {
-						setData(response.data.list);
-						setTotal(response.data.count);
-					}
+				if (response.code === 200) {
+					setData(response.data.list);
+					setTotal(response.data.count);
 				}
 			})
 	}
