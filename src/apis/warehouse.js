@@ -1,127 +1,60 @@
-import axios from 'axios';
-import authHeader from './auth-header';
-import storage from '../utils/storage';
-class Warehouse {
-    get = (id) => {
-        return axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/warehouse`, {
-                headers: authHeader(storage.getStorage('token')),
-                params: {
-                    id: id
-                },
-            })
-            .then(response => {
-                if (response.data.code === 401) {
-                    storage.removeStorage('token');
-                    storage.removeStorage('role');
-                    return response.data;
-                } else if (response.data.code === 200) {
-                    return response.data;
-                }
-            }).catch(error => {
-                return error;
-            })
-    }
+import API from "./API";
 
-    export = (id) => {
-        return axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/warehouse/export`, {
-                headers: authHeader(storage.getStorage('token')),
-            })
-            .then(response => {
-                if (response.data.code === 401) {
-                    storage.removeStorage('token');
-                    storage.removeStorage('role');
-                    return response.data;
-                } else if (response.data.code === 200) {
-                    return response.data;
-                }
-            }).catch(error => {
-                return error;
-            })
-    }
+const Warehouse = {
+    
+	get: id => {
+        return API
+            .get(`/warehouse`, { params: { id }})
+			.then( res => res.data )
+			.catch( error => error )
+    },
 
-    create = (data) => {
-        return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/warehouse`, {
-                data: data
-            }, {
-                headers: authHeader(storage.getStorage('token'))
-            }).then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+    export: () => {
+        return API
+            .get(`/warehouse/export`)
+            .then( res => res.data )
+			.catch( error => error )
+    },
 
-    create_list = (data) => {
-        return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/warehouse/list`, {
-                data: data
-            }, {
-                headers: authHeader(storage.getStorage('token'))
-            }).then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+    create: data => {
+        return API
+            .post(`/warehouse`, { data })
+			.then( res => res.data )
+			.catch( error => error )
+    },
 
-    getListByOption = (sort_option, count, page, search_option) => {
-        return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/warehouse/filter_list`, {
+    create_list: data => {
+        return API
+            .post(`/warehouse/list`, { data })
+			.then( res => res.data )
+			.catch( error => error )
+    },
+
+    getListByOption: ( sort_option, count, page, search_option ) => {
+        return API
+            .post(`/warehouse/filter_list`, {
                 sort_option: sort_option,
                 count: count,
                 page: page,
                 search_option: search_option
-            }, {
-                headers: authHeader(storage.getStorage('token'))
             })
-            .then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+            .then( res => res.data )
+			.catch( error => error )
+    },
 
-    update = (data, id) => {
-        return axios
-            .put(`${process.env.REACT_APP_BACKEND_URL}/warehouse`, {
-                data: data,
-                id: id
-            }, {
-                headers: authHeader(storage.getStorage('token'))
-            })
-            .then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+    update: ( data, id ) => {
+        return API
+            .put(`/warehouse`, { data , id })
+            .then( res => res.data )
+			.catch( error => error )
+    },
 
-    delete = (id) => {
-        return axios
-            .delete(`${process.env.REACT_APP_BACKEND_URL}/warehouse`, {
-                headers: authHeader(storage.getStorage('token')),
-                params: {
-                    id: id
-                },
-            })
-            .then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
+    delete: id => {
+        return API
+            .delete(`/warehouse`, { params: { id }})
+            .then( res => res.data )
+			.catch( error => error )
     }
 }
-export default new Warehouse();
+
+export default Warehouse;
