@@ -1,144 +1,67 @@
-import axios from 'axios';
-import authHeader from './auth-header';
-import storage from '../utils/storage';
-class AssortmentGroup {
-    getInfo = (id) => {
-        return axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/assortment_group/info`, {
-                headers: authHeader(storage.getStorage('token')),
-            })
-            .then(response => {
-                if (response.data.code === 401) {
-                    storage.removeStorage('token');
-                    storage.removeStorage('role');
-                    return response.data;
-                } else if (response.data.code === 200) {
-                    return response.data;
-                }
-            }).catch(error => {
-                return error;
-            })
-    }
-    get = (id) => {
-        return axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/assortment_group`, {
-                headers: authHeader(storage.getStorage('token')),
-                params: {
-                    id: id
-                },
-            })
-            .then(response => {
-                if (response.data.code === 401) {
-                    storage.removeStorage('token');
-                    storage.removeStorage('role');
-                    return response.data;
-                } else if (response.data.code === 200) {
-                    return response.data;
-                }
-            }).catch(error => {
-                return error;
-            })
-    }
+import API from "./API";
 
-    export = (id) => {
-        return axios
-            .get(`${process.env.REACT_APP_BACKEND_URL}/assortment_group/export`, {
-                headers: authHeader(storage.getStorage('token')),
-            })
-            .then(response => {
-                if (response.data.code === 401) {
-                    storage.removeStorage('token');
-                    storage.removeStorage('role');
-                    return response.data;
-                } else if (response.data.code === 200) {
-                    return response.data;
-                }
-            }).catch(error => {
-                return error;
-            })
-    }
+const AssortmentGroup = {
 
-    create = (data) => {
-        return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/assortment_group`, {
-                data: data
-            }, {
-                headers: authHeader(storage.getStorage('token'))
-            }).then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+	getInfo: () => {
+        return API
+            .get(`/assortment_group/info`)
+            .then( res => res.data )
+			.catch( error => error )
+    },
 
-    create_list = (data) => {
-        return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/assortment_group/list`, {
-                data: data
-            }, {
-                headers: authHeader(storage.getStorage('token'))
-            }).then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+    get: id => {
+        return API
+            .get(`/assortment_group`, { params: { id }})
+            .then( res => res.data )
+			.catch( error => error )
+    },
 
-    getListByOption = (sort_option, count, page, search_option) => {
-        return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/assortment_group/filter_list`, {
+    export: id => {
+        return API
+            .get(`/assortment_group/export`)
+            .then( res => res.data )
+			.catch( error => error )
+    },
+
+    create: data => {
+        return API
+            .post(`/assortment_group`, { data })
+			.then( res => res.data )
+			.catch( error => error )
+    },
+
+    create_list: data => {
+        return API
+            .post(`/assortment_group/list`, { data })
+			.then( res => res.data )
+			.catch( error => error )
+    },
+
+    getListByOption: (sort_option, count, page, search_option) => {
+        return API
+            .post(`/assortment_group/filter_list`, {
                 sort_option: sort_option,
                 count: count,
                 page: page,
                 search_option: search_option
-            }, {
-                headers: authHeader(storage.getStorage('token'))
             })
-            .then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+            .then( res => res.data )
+			.catch( error => error )
+    },
 
-    update = (data, id) => {
-        return axios
-            .put(`${process.env.REACT_APP_BACKEND_URL}/assortment_group`, {
-                data: data,
-                id: id
-            }, {
-                headers: authHeader(storage.getStorage('token'))
-            })
-            .then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
-    }
+    update: ( data, id ) => {
+        return API
+            .put(`/assortment_group`, { data, id })
+			.then( res => res.data )
+			.catch( error => error )
+    },
 
-    delete = (id) => {
-        return axios
-            .delete(`${process.env.REACT_APP_BACKEND_URL}/assortment_group`, {
-                headers: authHeader(storage.getStorage('token')),
-                params: {
-                    id: id
-                },
-            })
-            .then(response => {
-                if (response.data.code === 401)
-                    storage.removeStorage('token');
-                return response.data;
-            }).catch(error => {
-                return error;
-            })
+    delete: id => {
+        return API
+            .delete(`/assortment_group`, { params: { id }})
+			.then( res => res.data )
+			.catch( error => error )
     }
 }
-export default new AssortmentGroup();
+
+export default AssortmentGroup;
