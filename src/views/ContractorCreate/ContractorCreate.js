@@ -78,10 +78,10 @@ const ContractorCreate = props => {
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Czas realizacji zamówienia [dni]" name="order_fulfillment_time" type="number" value={data.order_fulfillment_time} handleChange={handleChange} />
+							<FormInput title="REGON" name="regon" type="input" value={data.regon} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Odchylenie czasu realizacji [dni]" name="delivery_time_deviation" type="number" value={data.delivery_time_deviation} handleChange={handleChange} />
+							<FormInput title="NIP" name="nip" type="input" value={data.nip} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>

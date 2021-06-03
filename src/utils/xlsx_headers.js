@@ -1,22 +1,22 @@
 const assortment_header = [
   {
+    header: 'Nazwa',
+    attr: 'name' 
+  }, {
     header: 'Indeks',
     attr: 'index',
   }, {
     header: 'GTIN',
     attr: 'gtin' 
   }, {
-    header: 'Nazwa',
-    attr: 'name' 
-  }, {
-    header: 'Jednostka logistyczna',
+    header: 'Jednostka miary',
     attr: 'measure_unit_name' 
   }, {
-    header: 'Jednostka handlowa',
-    attr: 'unit_name' 
+    header: 'Jednostka logistyczna',
+    attr: 'logistic_unit_name'
   }, {
     header: 'Cena zakupu [PLN]',
-    attr: 'purchase_price' ,
+    attr: 'purchase_price',
     type: 'number',
   }, {
     header: 'Cena sprzedaży [PLN]',
@@ -49,9 +49,11 @@ const assortment_header = [
     attr: 'active',
     type: 'bool', 
   }, {
-    header: 'Na zamówienie',
-    attr: 'to_order' ,
-    type: 'bool',
+    header: 'Dostawca',
+    attr: 'supplier' ,
+  }, {
+    header: 'Odbiorca',
+    attr: 'recipient' ,
   },
 ];
 
@@ -72,22 +74,6 @@ const assortment_group_header = [
   }, {
     header: 'Opis',
     attr: 'description' 
-  }, {
-    header: 'Prawdopodobieństwo obsługi popytu [%]',
-    attr: 'service_demand' ,
-    type: 'number'
-  }, {
-    header: 'Czas cyklu uzupełniania [dni]',
-    attr: 'refill_cycle_time' ,
-    type: 'number'
-  }, {
-    header: 'Odchylenie czasu cyklu uzupełnienia [dni]',
-    attr: 'cycle_time_deviations' ,
-    type: 'number'
-  }, {
-    header: 'Współczynnik kosztu Utrzymania zapasu [-]',
-    attr: 'inventory_cost_factor' ,
-    type: 'number'
   }
 ];
 
@@ -119,19 +105,7 @@ const warehouse_group_header = [
   }, {
     header: 'Opis',
     attr: 'description' 
-  }, {
-    header: 'Przyjęcia',
-    attr: 'received' ,
-    type: 'number'
-  }, {
-    header: 'Wydania',
-    attr: 'releases' ,
-    type: 'number'
-  }, {
-    header: 'Zapas',
-    attr: 'supply' ,
-    type: 'number'
-  }
+  },
 ];
 
 const contractor_header = [
@@ -157,15 +131,7 @@ const contractor_header = [
     header: 'Opis',
     attr: 'description' 
   }, {
-    header: 'Czas realizacji Zamówienia [dni]',
-    attr: 'order_fulfillment_time',
-    type: 'number'
-  }, {
-    header: 'Odchylenie czasu Realizacji [dni]',
-    attr: 'delivery_time_deviation' ,
-    type: 'number'
-  }, {
-    header: 'Minimalna wielkość Zamówienia',
+    header: 'Minimalna wielkość zamówienia',
     attr: 'minimum_order_quantity' ,
     type: 'number'
   }, {
@@ -185,7 +151,7 @@ const contractor_header = [
     attr: 'active',
     type: 'bool' 
   }, {
-    header: 'Dostawca pokrywa Koszty transportu',
+    header: 'Dostawca pokrywa koszty transportu',
     attr: 'supplier_transport' ,
     type: 'bool'
   }
@@ -216,64 +182,65 @@ const warehouse_operation_header = [
     header: 'Data',
     attr: 'date'
   }, {
-    header: 'Jednostka Miary',
-    attr: 'unit_name'
+    header: 'Jednostka miary',
+    attr: 'measure_unit_name'
   }, {
-    header: 'Jednostka Logistyczna',
-    attr: 'measure_unit_name',
+    header: 'Jednostka logistyczna',
+    attr: 'logistic_unit_name',
   }, {
     header: 'Magazyn',
     attr: 'warehouse_name'
   }, {
-    header: 'Kontrahent',
-    attr: 'contractor_name'
-  }, {
     header: 'Wielkość przyjęć',
-    attr: 'receipt_value',
+    attr: 'received',
     type: 'number'
   }, {
-    header: 'Częstotliwość przyjęć [-]',
-    attr: 'reception_frequency',
+    header: 'Liczba przyjęć [-]',
+    attr: 'received_number',
     type: 'number'
   }, {
     header: 'Wartość przyjęć [PLN]',
-    attr: 'calculated_received_value',
+    attr: 'received_value',
     type: 'calculate',
-    first: 'receipt_value',
+    first: 'received',
     second: 'purchase_price'
   }, {
-    header: 'Wielkość wydań',
-    attr: 'issue_amount',
+    header: 'Koszt obsługi I dostawy',
+    attr: 'handling_delivery_cost',
     type: 'number'
   }, {
-    header: 'Częstotliwość wydań [-]',
-    attr: 'release_frequency',
+    header: 'Wielkość wydań',
+    attr: 'release',
+    type: 'number'
+  }, {
+    header: 'Liczba wydań [-]',
+    attr: 'release_number',
     type: 'number'
   }, {
     header: 'Wartość wydań [PLN]',
-    attr: 'calculated_releases_value',
+    attr: 'release_value',
     type: 'calculate',
-    first: 'issue_amount',
+    first: 'release',
     second: 'sale_price'
   }, {
     header: 'Zapas [jednostka miary]',
-    attr: 'inventory',
+    attr: 'stock',
     type: 'number'
   }, {
     header: 'Wartość zapasu [PLN]',
-    attr: 'stock_value',
+    attr: 'stock_pln',
     type: 'calculate',
-    first: 'inventory',
+    first: 'stock',
     second: 'purchase_price'
   }, {
     header: 'Wielkość zamówienia [jednostka miary]',
-    attr: 'order_quantity',
+    attr: 'order',
     type: 'number',
   }, {
     header: 'Wartość Zamówienia [PLN]',
-    attr: 'order_value',
+    attr: 'order_pln',
     type: 'calculate',
-    first: 'order_quantity',
+    first: 'order',
     second: 'sale_price'
   }
 ];

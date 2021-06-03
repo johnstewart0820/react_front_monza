@@ -56,21 +56,7 @@ const WarehouseGroupCreate = props => {
 					<FormInput title="Nazwa grupy" name="name" type="input" value={data.name} handleChange={handleChange} />
 					<FormInput title="Przynależne magazyny" name="warehouses" type="several_single" value={data.warehouses} handleChange={handleChange} list={listInfo.warehouse_list} button_title="Dodaj kolejny magazyn"/>
 					<FormInput title="Opis" name="description" type="area" value={data.description} handleChange={handleChange} />
-					<Grid container spacing={2}>
-						<Grid item xs={12} md={6}>
-							<FormInput title="Przyjęcie" name="received" type="number" value={data.received} handleChange={handleChange} />
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<FormInput title="Wydanie" name="releases" type="number" value={data.releases} handleChange={handleChange} />
-						</Grid>
-						<Grid item xs={12} md={6}>
-							<FormInput title="Zapas" name="supply" type="number" value={data.supply} handleChange={handleChange} />
-						</Grid>
-						<Grid item xs={12} md={6} style={{ paddingTop: '27px' }}>
-							<FormInput title="Aktywny" name="active" type="check_box" value={data.active} handleChange={handleChange} />
-						</Grid>
-					</Grid>
-
+					<FormInput title="Aktywny" name="active" type="check_box" value={data.active} handleChange={handleChange} />
 				</React.Fragment>
 			</SingleDetail>
 		</>

@@ -19,7 +19,7 @@ const AssortmentGroup = props => {
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Grupy Magazynów'];
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({name: '', sub_name: '', code: ''});
+	const [searchOption, setSearchOption] = useState({id: '', name: '', sub_name: '', code: '', description: ''});
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);

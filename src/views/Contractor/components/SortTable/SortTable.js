@@ -99,7 +99,7 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(4)}
               >
-                Dostawca
+                REGON
             </TableSortLabel>
             </TableCell>
             <TableCell>
@@ -108,14 +108,32 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(5)}
               >
-                Odbiorca
-            </TableSortLabel>
+                NIP
+              </TableSortLabel>
             </TableCell>
             <TableCell>
               <TableSortLabel
                 active={sortOption.sortBy === 6}
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(6)}
+              >
+                Dostawca
+            </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortOption.sortBy === 7}
+                direction={sortOption.sortOrder}
+                onClick={() => requestSort(7)}
+              >
+                Odbiorca
+            </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortOption.sortBy === 8}
+                direction={sortOption.sortOrder}
+                onClick={() => requestSort(8)}
               >
                 Aktywny
             </TableSortLabel>
@@ -129,7 +147,9 @@ const SortTable = (props) => {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell></TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+            </TableCell>
             <TableCell>
               <input className={global_classes.input_box} value={searchOption.name} onChange={(e) => setSearchOption({ ...searchOption, name: e.target.value })} />
             </TableCell>
@@ -138,6 +158,12 @@ const SortTable = (props) => {
             </TableCell>
             <TableCell>
               <input className={global_classes.input_box} value={searchOption.GLN} onChange={(e) => setSearchOption({ ...searchOption, GLN: e.target.value })} />
+            </TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.regon} onChange={(e) => setSearchOption({ ...searchOption, regon: e.target.value })} />
+            </TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.nip} onChange={(e) => setSearchOption({ ...searchOption, nip: e.target.value })} />
             </TableCell>
             <TableCell>
               <SingleSelect
@@ -176,6 +202,12 @@ const SortTable = (props) => {
                   {item.GLN}
                 </TableCell>
                 <TableCell >
+                  {item.regon}
+                </TableCell>
+                <TableCell >
+                  {item.nip}
+                </TableCell>
+                <TableCell >
                   {item.supplier === 1 ?
                     <CheckIcon fontSize="small" className={classes.check_icon} />
                     :
@@ -210,49 +242,53 @@ const SortTable = (props) => {
               </TableRow>
               {item.preview &&
                 <TableRow>
-                  <TableCell colSpan={8}>
+                  <TableCell colSpan={10}>
                     <Grid container spacing={3} justify="space-around" style={{ padding: '10px 50px' }}>
-                      <Grid item xs={6}>
-                        <Typography variant="h6" style={{ marginBottom: 4 }}>
-                          Adres
-                        </Typography>
+                      <Grid item xs={12}>
                         <Grid container spacing={2}>
-                          <Grid item xs={5}>
+                          <Grid item xs={1}>
+                            <Typography variant="h6" style={{ marginBottom: 4 }}>
+                              Adres
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={2}>
                             <input value={item.address} className={global_classes.input_box} />
                           </Grid>
-                          <Grid item xs={3}>
+                          <Grid item xs={1}>
                             <input value={item.postal_code} className={global_classes.input_box} />
                           </Grid>
-                          <Grid item xs={4}>
+                          <Grid item xs={3}>
                             <input value={item.city} className={global_classes.input_box} />
                           </Grid>
+                          <Grid item xs={5} style={{justify: "flex-end", display: "flex", alignItems: "center"}}>
+                            {
+                              item.supplier_transport ?
+                                <>
+                                  <CheckIcon fontSize="small" className={classes.check_icon} />
+                                  <Typography variant="h6" style={{ marginBottom: 4 }}>
+                                    Dostawca pokrywa koszt transportu
+                                  </Typography>
+                                </>
+                                :
+                                <>
+                                  <CloseIcon fontSize="small" className={classes.close_icon} />
+                                  <Typography variant="h6" style={{ marginBottom: 4 }}>
+                                    Dostawca pokrywa koszt transportu
+                                  </Typography>
+                                </>
+
+                            }
+                          </Grid>
                         </Grid>
+                      </Grid>
+                      <Grid item xs={6}>
                         <Typography variant="h6" style={{ marginBottom: 4, marginTop: 8 }}>
                           Opis
                         </Typography>
                         <TextareaAutosize rows={7.3} value={item.description} className={global_classes.area} />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item xs={6} style={{marginTop: 30}}>
                         <Grid container spacing={2}>
-                          <Grid item xs={12}>
-                            <FormInput title="Dostawca pokrywa koszt transportu" name="supplier_transport" type="check_box" value={item.supplier_transport} />
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography variant="h6" style={{ marginBottom: 4 }}>
-                              Czas realizacji zamówienia [dni]
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <input value={item.order_fulfillment_time} className={global_classes.input_box} />
-                          </Grid>
-                          <Grid item xs={6}>
-                            <Typography variant="h6" style={{ marginBottom: 4 }}>
-                              Odchylenie czasu realizacji [dni]
-                            </Typography>
-                          </Grid>
-                          <Grid item xs={6}>
-                            <input value={item.delivery_time_deviation} className={global_classes.input_box} />
-                          </Grid>
                           <Grid item xs={6}>
                             <Typography variant="h6" style={{ marginBottom: 4 }}>
                               Minimalna wiekość zamówienia

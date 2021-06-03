@@ -67,22 +67,6 @@ const AssortmentGroupCreate = props => {
 						</Grid>
 					</Grid>
 					<FormInput title="Opis" name="description" type="area" value={data.description} handleChange={handleChange} />
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<FormInput title="Prawdopodobieństwo Obsługi popytu [%]" name="service_demand" type="number" value={data.service_demand} handleChange={handleChange} />
-						</Grid>
-						<Grid item xs={6}>
-							<FormInput title="Czas cyklu uzupełniania [dni]" name="refill_cycle_time" type="number" value={data.refill_cycle_time} handleChange={handleChange} />
-						</Grid>
-					</Grid>
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<FormInput title="Odchylenie czasu cyklu uzupełnienia [dni]" name="cycle_time_deviations" type="number" value={data.cycle_time_deviations} handleChange={handleChange} />
-						</Grid>
-						<Grid item xs={6}>
-							<FormInput title="Współczynnik kosztu utrzymania zapasu [-]" name="inventory_cost_factor" type="number" value={data.inventory_cost_factor} handleChange={handleChange} />
-						</Grid>
-					</Grid>
 				</React.Fragment>
 			</SingleDetail>
 		</>

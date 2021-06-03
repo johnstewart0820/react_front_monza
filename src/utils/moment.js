@@ -28,5 +28,14 @@ class dateUtil {
 
         return `${day}.${month}.${year}`
     }
+
+    getStringFromDateFormat = (full_date) => {
+        let data = new moment(full_date);
+        let day = this.adjust2digits(data.date());
+        let month = this.adjust2digits(data.month() + 1);
+        let year = data.year().toString();
+
+        return `${year}-${month}-${day}`
+    }
 }
 export default new dateUtil();

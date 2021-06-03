@@ -19,7 +19,7 @@ const Warehouse = props => {
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Magazyny'];
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({name: '', description: '', active: 0});
+	const [searchOption, setSearchOption] = useState({ id: '', name: '', description: '', active: 0});
 	const [listInfo, setListInfo] = useState({active: [{id: 1, name: 'Nie'}, {id: 2, name: 'Tak'}]})
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);

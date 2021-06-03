@@ -11,7 +11,7 @@ const AssortmentCreate = props => {
 	const { addToast } = useToasts()
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Asortyment', 'Dodaj nowy/Edytuj'];
 	const [data, setData] = useState({});
-	const [listInfo, setListInfo] = useState({ unitList: [], measureUnitList: [], assortmentGroup: []});
+	const [listInfo, setListInfo] = useState({ logisticUnitList: [], measureUnitList: [], assortmentGroup: [], supplierList: [], recipientList: []});
 
 	useEffect(() => {
 		assortment
@@ -64,14 +64,13 @@ const AssortmentCreate = props => {
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Jednostka han." name="unit" type="single" value={data.unit} list={listInfo.unitList} handleChange={handleChange} />
+							<FormInput title="Jednostka miary" name="measure_unit" type="single" value={data.measure_unit} list={listInfo.measureUnitList} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Jednostka log." name="measure_unit" type="single" value={data.measure_unit} list={listInfo.measureUnitList} handleChange={handleChange} />
+							<FormInput title="Jednostka logistyczna" name="logistic_unit" type="single" value={data.logistic_unit} list={listInfo.logisticUnitList} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<FormInput title="Aktywny" name="active" type="check_box" value={data.active} handleChange={handleChange} />
-					<FormInput title="Na zamówienie" name="to_order" type="check_box" value={data.to_order} handleChange={handleChange} />
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
 							<FormInput title="Cena zakupu [PLN]" name="purchase_price" type="number" value={data.purchase_price} handleChange={handleChange} />
@@ -102,6 +101,14 @@ const AssortmentCreate = props => {
 						</Grid>
 						<Grid item xs={6}>
 							<FormInput title="Współczynnik kosztu utrzymania zapasu [-]" name="inventory_cost_factor" type="number" value={data.inventory_cost_factor} handleChange={handleChange} />
+						</Grid>
+					</Grid>
+					<Grid container spacing={2}>
+						<Grid item xs={6}>
+							<FormInput title="Dostawca" name="supplier" type="single" value={data.supplier} list={listInfo.supplierList} handleChange={handleChange} />
+						</Grid>
+						<Grid item xs={6}>
+							<FormInput title="Odbiorca" name="recipient" type="single" value={data.recipient} list={listInfo.recipientList} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 				</React.Fragment>

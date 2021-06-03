@@ -8,6 +8,7 @@ import warehouse_operation from 'apis/warehouse_operation';
 import { warehouse_operation_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
+import moment from 'utils/moment';
 
 const WarehouseOperation = props => {
 	const { children, history } = props;
@@ -17,16 +18,15 @@ const WarehouseOperation = props => {
 	const { addToast } = useToasts()
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({ start_date: '1998-01-01', end_date: '2050-12-31', assortment: 0, assortment_group: 0, unit: 0, measure_unit: 0, contractor: 0, warehouse: 0, receipt_value: '', issue_amount: '' });
+	const [searchOption, setSearchOption] = useState({ start_date: moment.getStringFromDateFormat(new Date()), end_date: moment.getStringFromDateFormat(new Date()), assortment: 0, assortment_group: 0, measure_unit: 0, logistic_unit: 0,  warehouse: 0, received: '', release: '', order: '', handling_delivery_cost: '' });
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
 	const [listInfo, setListInfo] = useState({
 		assortment: [],
 		assortment_group: [],
-		unit: [],
+		logistic_unit: [],
 		measure_unit: [],
-		contractor: [],
 		warehouse: [],
 	})
 	const [progressStatus, setProgressStatus] = useState(false);
@@ -53,6 +53,8 @@ const WarehouseOperation = props => {
 		handleSearch();
 		setPage(1);
 	}, [searchOption]);
+
+	
 
 	const handleCreate = () => {
 		history.push('/warehouse_operation/create');

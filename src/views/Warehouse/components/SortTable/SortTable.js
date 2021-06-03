@@ -85,7 +85,9 @@ const SortTable = (props) => {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell></TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+            </TableCell>
             <TableCell>
               <input className={global_classes.input_box} value={searchOption.name} onChange={(e) => setSearchOption({ ...searchOption, name: e.target.value })} />
             </TableCell>

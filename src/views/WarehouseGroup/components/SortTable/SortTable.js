@@ -48,12 +48,6 @@ const SortTable = (props) => {
     handleChange(_rows);
   }
 
-  const handlePreview = (indx) => {
-    let _rows = JSON.parse(JSON.stringify(rows));
-    _rows[indx].preview = !_rows[indx].preview;
-    handleChange(_rows);
-  }
-
   const handleEditItem = (id) => {
     history.push(`/warehouse_group/edit/${id}`)
   }
@@ -100,6 +94,15 @@ const SortTable = (props) => {
             </TableSortLabel>
             </TableCell>
             <TableCell>
+              <TableSortLabel
+                active={sortOption.sortBy === 4}
+                direction={sortOption.sortOrder}
+                onClick={() => requestSort(4)}
+              >
+                Opis
+            </TableSortLabel>
+            </TableCell>
+            <TableCell>
               <TableSortLabel align="right">
                 Akcje
             </TableSortLabel>
@@ -108,7 +111,9 @@ const SortTable = (props) => {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell></TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+            </TableCell>
             <TableCell>
               <input className={global_classes.input_box} value={searchOption.name} onChange={(e) => setSearchOption({ ...searchOption, name: e.target.value })} />
             </TableCell>
@@ -121,6 +126,9 @@ const SortTable = (props) => {
                 handleChange={(value) => setSearchOption({ ...searchOption, active: value })}
                 list={listInfo.active}
               />
+            </TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.description} onChange={(e) => setSearchOption({ ...searchOption, description: e.target.value })} />
             </TableCell>
             <TableCell></TableCell>
           </TableRow>
@@ -149,9 +157,9 @@ const SortTable = (props) => {
                   }
                 </TableCell>
                 <TableCell>
-                  <IconButton component="span" className={!item.preview ? global_classes.iconButton : global_classes.greenIconButton}  onClick={() => handlePreview(indx)} >
-                    <VisibilityIcon className={ global_classes.icon}/>
-                  </IconButton>
+                  {item.description}
+                </TableCell>
+                <TableCell>
                   <IconButton component="span" className={global_classes.iconButton} onClick={() => handleEditItem(item.id)}>
                     <EditOutlinedIcon className={global_classes.icon} />
                   </IconButton>
@@ -160,34 +168,6 @@ const SortTable = (props) => {
                   </IconButton>
                 </TableCell>
               </TableRow>
-              {item.preview &&
-                <TableRow>
-                  <TableCell colSpan={5}>
-                    <Grid container spacing={2} justify="space-around" style={{padding: '10px 50px'}}>
-                      <Grid item xs={6}>
-                        <Typography variant="h6" style={{ marginBottom: 8 }}>
-                          Opis
-                      </Typography>
-                        <TextareaAutosize rows={7.3} value={item.description} className={global_classes.area} />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Typography variant="h6" style={{ marginBottom: 8 }}>
-                          Przyjęcia
-                      </Typography>
-                        <input value={item.received} className={global_classes.input_box} />
-                        <Typography variant="h6" style={{ marginBottom: 8 }}>
-                          Wydania
-                      </Typography>
-                        <input value={item.releases} className={global_classes.input_box} />
-                        <Typography variant="h6" style={{ marginBottom: 8 }}>
-                          Zapas
-                      </Typography>
-                        <input value={item.supply} className={global_classes.input_box} />
-                      </Grid>
-                    </Grid>
-                  </TableCell>
-                </TableRow>
-              }
               {
                 item.opened &&
                 item.sub_list.map((sub_item, index) => (
@@ -202,6 +182,7 @@ const SortTable = (props) => {
                         <CloseIcon fontSize="small" className={classes.close_icon} />
                       }
                     </TableCell>
+                    <TableCell >{sub_item.description}</TableCell>
                     <TableCell>
                     </TableCell>
                   </TableRow>

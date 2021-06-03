@@ -105,7 +105,7 @@ const SortTable = (props) => {
                     Jednostka
                 </div>
                   <div>
-                    handlowa
+                    miary
                   </div>
                 </div>
               </TableSortLabel>
@@ -121,7 +121,7 @@ const SortTable = (props) => {
                     Jednostka
                   </div>
                   <div>
-                    log.
+                    logistyczna
                   </div>
                 </div>
               </TableSortLabel>
@@ -141,8 +141,17 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(7)}
               >
-                Na zamów.
+                Dostawca
             </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortOption.sortBy === 8}
+                direction={sortOption.sortOrder}
+                onClick={() => requestSort(8)}
+              >
+                Odbiorca
+              </TableSortLabel>
             </TableCell>
             <TableCell>
               <TableSortLabel align="right">
@@ -153,7 +162,9 @@ const SortTable = (props) => {
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell></TableCell>
+            <TableCell>
+              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+            </TableCell>
             <TableCell>
               <input className={global_classes.input_box} value={searchOption.name} onChange={(e) => setSearchOption({ ...searchOption, name: e.target.value })} />
             </TableCell>
@@ -165,16 +176,16 @@ const SortTable = (props) => {
             </TableCell>
             <TableCell>
               <SingleSelect
-                value={searchOption.unit}
-                handleChange={(value) => setSearchOption({ ...searchOption, unit: value })}
-                list={listInfo.unitList}
+                value={searchOption.measure_unit}
+                handleChange={(value) => setSearchOption({ ...searchOption, measure_unit: value })}
+                list={listInfo.measureUnitList}
               />
             </TableCell>
             <TableCell>
               <SingleSelect
-                value={searchOption.measure_unit}
-                handleChange={(value) => setSearchOption({ ...searchOption, measure_unit: value })}
-                list={listInfo.measureUnitList}
+                value={searchOption.logistic_unit}
+                handleChange={(value) => setSearchOption({ ...searchOption, logistic_unit: value })}
+                list={listInfo.logisticUnitList}
               />
             </TableCell>
             <TableCell>
@@ -186,9 +197,16 @@ const SortTable = (props) => {
             </TableCell>
             <TableCell>
               <SingleSelect
-                value={searchOption.to_order}
-                handleChange={(value) => setSearchOption({ ...searchOption, to_order: value })}
-                list={listInfo.to_order}
+                value={searchOption.supplier}
+                handleChange={(value) => setSearchOption({ ...searchOption, supplier: value })}
+                list={listInfo.supplierList}
+              />
+            </TableCell>
+            <TableCell>
+              <SingleSelect
+                value={searchOption.recipient}
+                handleChange={(value) => setSearchOption({ ...searchOption, recipient: value })}
+                list={listInfo.recipientList}
               />
             </TableCell>
             <TableCell></TableCell>
@@ -200,8 +218,8 @@ const SortTable = (props) => {
                 <TableCell>{item.name}</TableCell>
                 <TableCell>{item.index}</TableCell>
                 <TableCell>{item.gtin}</TableCell>
-                <TableCell>{item.unit_name}</TableCell>
                 <TableCell>{item.measure_unit_name}</TableCell>
+                <TableCell>{item.logistic_unit_name}</TableCell>
                 <TableCell >
                   {item.active === 1 ?
                     <CheckIcon fontSize="small" className={classes.check_icon} />
@@ -209,13 +227,8 @@ const SortTable = (props) => {
                     <CloseIcon fontSize="small" className={classes.close_icon} />
                   }
                 </TableCell>
-                <TableCell >
-                  {item.to_order === 1 ?
-                    <CheckIcon fontSize="small" className={classes.check_icon} />
-                    :
-                    <CloseIcon fontSize="small" className={classes.close_icon} />
-                  }
-                </TableCell>
+                <TableCell>{item.supplier_name}</TableCell>
+                <TableCell>{item.recipient_name}</TableCell>
                 <TableCell>
                   <IconButton component="span" className={!item.preview ? global_classes.iconButton : global_classes.greenIconButton} onClick={() => handlePreview(indx)} >
                     <VisibilityIcon className={global_classes.icon} />

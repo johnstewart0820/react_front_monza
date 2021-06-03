@@ -19,7 +19,7 @@ const Contractor = props => {
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Grupy Magazynów'];
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({name: '', code: '', GLN: '', supplier: 0, recipient: 0, active: 0});
+	const [searchOption, setSearchOption] = useState({id: '', name: '', code: '', GLN: '', regon: '', nip: '', supplier: 0, recipient: 0, active: 0});
 	const [listInfo, setListInfo] = useState({
 		active: [{id: 1, name: 'Nie'}, {id: 2, name: 'Tak'}],
 		supplier: [{id: 1, name: 'Nie'}, {id: 2, name: 'Tak'}],

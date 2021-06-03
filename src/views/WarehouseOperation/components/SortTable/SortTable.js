@@ -136,7 +136,7 @@ const SortTable = (props) => {
                   direction={sortOption.sortOrder}
                   onClick={() => requestSort(6)}
                 >
-                  Kontrahent
+                  Magazyn
               </TableSortLabel>
               </TableCell>
               <TableCell>
@@ -145,8 +145,15 @@ const SortTable = (props) => {
                   direction={sortOption.sortOrder}
                   onClick={() => requestSort(7)}
                 >
-                  Magazyn
-              </TableSortLabel>
+                  <div>
+                    <div>
+                      Wielkść
+                  </div>
+                    <div>
+                      przyjęć
+                  </div>
+                  </div>
+                </TableSortLabel>
               </TableCell>
               <TableCell>
                 <TableSortLabel
@@ -159,7 +166,7 @@ const SortTable = (props) => {
                       Wielkść
                   </div>
                     <div>
-                      przyjęć
+                      wydań
                   </div>
                   </div>
                 </TableSortLabel>
@@ -175,7 +182,7 @@ const SortTable = (props) => {
                       Wielkść
                   </div>
                     <div>
-                      wydań
+                      zamówień
                   </div>
                   </div>
                 </TableSortLabel>
@@ -186,14 +193,32 @@ const SortTable = (props) => {
                   direction={sortOption.sortOrder}
                   onClick={() => requestSort(10)}
                 >
+                  <div>
+                    <div>
+                      Koszt obsługi
+                  </div>
+                    <div>
+                      i dostawy
+                  </div>
+                  </div>
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={sortOption.sortBy === 11}
+                  direction={sortOption.sortOrder}
+                  onClick={() => requestSort(11)}
+                >
                   Akcje
-            </TableSortLabel>
+                </TableSortLabel>
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell>
+              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+              </TableCell>
               <TableCell>
                 <div style={{ display: 'flex' }}>
                   <KeyboardDatePicker
@@ -233,13 +258,6 @@ const SortTable = (props) => {
               </TableCell>
               <TableCell>
                 <SingleSelect
-                  value={searchOption.unit}
-                  handleChange={(value) => setSearchOption({ ...searchOption, unit: value })}
-                  list={listInfo.unit}
-                />
-              </TableCell>
-              <TableCell>
-                <SingleSelect
                   value={searchOption.measure_unit}
                   handleChange={(value) => setSearchOption({ ...searchOption, measure_unit: value })}
                   list={listInfo.measure_unit}
@@ -247,9 +265,9 @@ const SortTable = (props) => {
               </TableCell>
               <TableCell>
                 <SingleSelect
-                  value={searchOption.contractor}
-                  handleChange={(value) => setSearchOption({ ...searchOption, contractor: value })}
-                  list={listInfo.contractor}
+                  value={searchOption.logistic_unit}
+                  handleChange={(value) => setSearchOption({ ...searchOption, logistic_unit: value })}
+                  list={listInfo.logistic_unit}
                 />
               </TableCell>
               <TableCell>
@@ -265,7 +283,12 @@ const SortTable = (props) => {
               <TableCell>
                 <input className={global_classes.input_box} value={searchOption.issue_amount} onChange={(e) => setSearchOption({ ...searchOption, issue_amount: e.target.value })} />
               </TableCell>
-
+              <TableCell>
+                <input className={global_classes.input_box} value={searchOption.order_quantity} onChange={(e) => setSearchOption({ ...searchOption, order_quantity: e.target.value })} />
+              </TableCell>
+              <TableCell>
+                <input className={global_classes.input_box} value={searchOption.handling_delivery_cost} onChange={(e) => setSearchOption({ ...searchOption, handling_delivery_cost: e.target.value })} />
+              </TableCell>
               <TableCell></TableCell>
             </TableRow>
             {rows.map((item, indx) => (
@@ -275,12 +298,13 @@ const SortTable = (props) => {
                   <TableCell>{dateUtil.getStringFromDate(item.date)}</TableCell>
                   <TableCell>{item.assortment_name}</TableCell>
                   <TableCell>{item.assortment_group_name}</TableCell>
-                  <TableCell>{item.unit_name}</TableCell>
                   <TableCell>{item.measure_unit_name}</TableCell>
-                  <TableCell>{item.contractor_name}</TableCell>
+                  <TableCell>{item.logistic_unit_name}</TableCell>
                   <TableCell>{item.warehouse_name}</TableCell>
-                  <TableCell>{item.receipt_value}</TableCell>
-                  <TableCell>{item.issue_amount}</TableCell>
+                  <TableCell>{item.received}</TableCell>
+                  <TableCell>{item.release}</TableCell>
+                  <TableCell>{item.order}</TableCell>
+                  <TableCell>{item.handling_delivery_cost}</TableCell>
                   <TableCell>
                     <IconButton component="span" className={!item.preview ? global_classes.iconButton : global_classes.greenIconButton} onClick={() => handlePreview(indx)} >
                       <VisibilityIcon className={global_classes.icon} />
@@ -301,11 +325,11 @@ const SortTable = (props) => {
                           <Grid container spacing={2}>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Częstotliwość przyjęć [-]
+                                Liczba przyjęć [-]
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
-                              <input value={item.reception_frequency} className={global_classes.input_box} />
+                              <input value={item.received_number} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
@@ -315,17 +339,17 @@ const SortTable = (props) => {
                             <Grid item xs={6}>
                               <input value={
                                 main.convertNumToStr(
-                                  main.round(main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'purchase_price', '')) 
-                                  * main.convertStrToNum(item.receipt_value),
-                                  2))} className={global_classes.input_box} />
+                                  main.round(main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'purchase_price', ''))
+                                    * main.convertStrToNum(item.receipt),
+                                    2))} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Zapas [jednostka miary]
+                                Zapas [j.m.]
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
-                              <input value={item.inventory} className={global_classes.input_box} />
+                              <input value={item.stock} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
@@ -336,8 +360,8 @@ const SortTable = (props) => {
                               <input value={
                                 main.convertNumToStr(
                                   main.round(
-                                    main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'purchase_price', '')) 
-                                    * main.convertStrToNum(item.inventory), 2))} className={global_classes.input_box} />
+                                    main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'purchase_price', ''))
+                                    * main.convertStrToNum(item.stock), 2))} className={global_classes.input_box} />
                             </Grid>
                           </Grid>
                         </Grid>
@@ -345,11 +369,11 @@ const SortTable = (props) => {
                           <Grid container spacing={2}>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Częstotliwość wydań [-]
+                                Liczba wydan [-] 
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
-                              <input value={item.release_frequency} className={global_classes.input_box} />
+                              <input value={item.release_number} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
@@ -359,17 +383,9 @@ const SortTable = (props) => {
                             <Grid item xs={6}>
                               <input value={main.convertNumToStr(
                                 main.round(
-                                  main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'sale_price', '')) 
-                                  * main.convertStrToNum(item.issue_amount) 
+                                  main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'sale_price', ''))
+                                  * main.convertStrToNum(item.release)
                                   , 2))} className={global_classes.input_box} />
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Wielkość zamówienia
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <input value={item.order_quantity} className={global_classes.input_box} />
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
@@ -378,7 +394,7 @@ const SortTable = (props) => {
                             </Grid>
                             <Grid item xs={6}>
                               <input value={main.round(main.convertStrToNum(main.getAttrFromArray(listInfo.assortment, item.assortment, 'sale_price', ''))
-                               * main.convertStrToNum(item.order_quantity), 2)} className={global_classes.input_box} />
+                                * main.convertStrToNum(item.order), 2)} className={global_classes.input_box} />
                             </Grid>
                           </Grid>
                         </Grid>

@@ -12,7 +12,7 @@ const WarehouseOperationCreate = props => {
 	const { addToast } = useToasts()
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Operacje magazynowe', 'Dodaj nowy/Edytuj'];
 	const [data, setData] = useState({ date: null });
-	const [listInfo, setListInfo] = useState({ assortment: [], warehouse: [], unit: [], measure_unit: [], contractor: []});
+	const [listInfo, setListInfo] = useState({ assortment: [], warehouse: [], logistic_unit: [], measure_unit: []});
 
 	useEffect(() => {
 		warehouse_operation
@@ -31,20 +31,20 @@ const WarehouseOperationCreate = props => {
 	useEffect(() => {
 		let purchase_price = main.getAttrFromArray(listInfo.assortment, data.assortment, 'purchase_price', '');
 		let sale_price = main.getAttrFromArray(listInfo.assortment, data.assortment, 'sale_price', '');
-		let calculated_received_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.receipt_value), 2);
-		let calculated_releases_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.issue_amount), 2);
-		let stock_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.inventory), 2);
-		let order_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.order_quantity), 2);
+		let calculated_received_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.received), 2);
+		let calculated_releases_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.release), 2);
+		let stock_value = main.round(main.convertStrToNum(purchase_price) * main.convertStrToNum(data.stock), 2);
+		let order_value = main.round(main.convertStrToNum(sale_price) * main.convertStrToNum(data.order), 2);
 		setData({
 			...data,
 			'purchase_price': purchase_price, 
 			'sale_price': sale_price,
-			'calculated_received_value': main.convertNumToStr(calculated_received_value),
-			'calculated_releases_value': main.convertNumToStr(calculated_releases_value),
-			'stock_value': main.convertNumToStr(stock_value),
-			'order_value': main.convertNumToStr(order_value)
+			'received_value': main.convertNumToStr(calculated_received_value),
+			'release_value': main.convertNumToStr(calculated_releases_value),
+			'stock_pln': main.convertNumToStr(stock_value),
+			'order_pln': main.convertNumToStr(order_value)
 		})
-	}, [data.assortment, data.receipt_value, data.reception_frequency, data.issue_amount, data.release_frequency, data.inventory, data.order_quantity])
+	}, [data.assortment, data.received, data.release, data.received_number, data.release_number, data.stock, data.order])
 	const handleSave = () => {
 		warehouse_operation
 			.create(data)
@@ -90,51 +90,55 @@ const WarehouseOperationCreate = props => {
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Jednostka miary" name="unit" type="single" value={data.unit} list={listInfo.unit} handleChange={handleChange} />
+							<FormInput title="Jednostka miary" name="measure_unit" type="single" value={data.measure_unit} list={listInfo.measure_unit} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Jednostka logistyczna" name="measure_unit" type="single" value={data.measure_unit} list={listInfo.measure_unit} handleChange={handleChange} />
-						</Grid>
-					</Grid>
-					<FormInput title="Kontrahent" name="contractor" type="single" value={data.contractor} list={listInfo.contractor} handleChange={handleChange} />
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<FormInput title="Wielkość przyjęć [jedn. m.] [jedn. log.]" name="receipt_value" type="number" value={data.receipt_value} handleChange={handleChange}/>
-						</Grid>
-						<Grid item xs={6}>
-							<FormInput title="Wielkość wydań [jedn. m.] [jedn. log.]" name="issue_amount" type="number" value={data.issue_amount} handleChange={handleChange}/>
+							<FormInput title="Jednostka logistyczna" name="logistic_unit" type="single" value={data.logistic_unit} list={listInfo.logistic_unit} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Częstotliwość przyjęć [-]" name="reception_frequency" type="number" value={data.reception_frequency} handleChange={handleChange}/>
+							<FormInput title="Wielkość przyjęć [jedn. m.] [jedn. log.]" name="received" type="number" value={data.received} handleChange={handleChange}/>
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Częstotliwość wydań [-] " name="release_frequency" type="number" value={data.release_frequency} handleChange={handleChange}/>
-						</Grid>
-					</Grid>
-					<Grid container spacing={2}>
-						<Grid item xs={6}>
-							<FormInput title="Wartość przyjęć [PLN]" name="calculated_received_value" type="input" value={data.calculated_received_value} handleChange={handleChange} disabled={true}/>
-						</Grid>
-						<Grid item xs={6}>
-							<FormInput title="Wartość wydań [PLN]" name="calculated_releases_value" type="input" value={data.calculated_releases_value} handleChange={handleChange} disabled={true}/>
+							<FormInput title="Wielkość wydań [jedn. m.] [jedn. log.]" name="release" type="number" value={data.release} handleChange={handleChange}/>
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Zapas [jedn. m.] [jedn. log.]" name="inventory" type="number" value={data.inventory} handleChange={handleChange} />
+							<FormInput title="Liczba przyjęć [-]" name="received_number" type="number" value={data.received_number} handleChange={handleChange}/>
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Wielkość zamówienia [jedn. m.] [jedn. log.]" name="order_quantity" type="number" value={data.order_quantity} handleChange={handleChange} />
+							<FormInput title="Liczba wydań [-]" name="release_number" type="number" value={data.release_number} handleChange={handleChange}/>
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Wartość zapasu [PLN]" name="stock_value" type="input" value={data.stock_value} handleChange={handleChange} disabled={true}/>
+							<FormInput title="Wartość przyjęć [PLN]" name="received_value" type="input" value={data.received_value} handleChange={handleChange} disabled={true}/>
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Wartość zamówienia [PLN] " name="order_value" type="input" value={data.order_value} handleChange={handleChange} disabled={true}/>
+							<FormInput title="Wartość wydań [PLN]" name="release_value" type="input" value={data.release_value} handleChange={handleChange} disabled={true}/>
+						</Grid>
+					</Grid>
+					<Grid container spacing={2}>
+						<Grid item xs={6}>
+							<FormInput title="Koszt obslugi i dostawy" name="handling_delivery_cost" type="number" value={data.handling_delivery_cost} handleChange={handleChange}/>
+						</Grid>
+					</Grid>
+					<Grid container spacing={2}>
+						<Grid item xs={6}>
+							<FormInput title="Zapas [jedn. m.] [jedn. log.]" name="stock" type="number" value={data.stock} handleChange={handleChange} />
+						</Grid>
+						<Grid item xs={6}>
+							<FormInput title="Wielkość zamówienia [jedn. m.] [jedn. log.]" name="order" type="number" value={data.order} handleChange={handleChange} />
+						</Grid>
+					</Grid>
+					<Grid container spacing={2}>
+						<Grid item xs={6}>
+							<FormInput title="Wartość zapasu [PLN]" name="stock_pln" type="input" value={data.stock_pln} handleChange={handleChange} disabled={true}/>
+						</Grid>
+						<Grid item xs={6}>
+							<FormInput title="Wartość zamówienia [PLN] " name="order_pln" type="input" value={data.order_pln} handleChange={handleChange} disabled={true}/>
 						</Grid>
 					</Grid>
 				</React.Fragment>

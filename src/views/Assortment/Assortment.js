@@ -17,15 +17,17 @@ const Assortment = props => {
 	const { addToast } = useToasts()
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({ name: '', index: '', gtin: '', unit: 0, measure_unit: 0, active: 0, to_order: 0 });
+	const [searchOption, setSearchOption] = useState({ id: '', name: '', index: '', gtin: '', measure_unit: 0, logistic_unit: 0, active: 0, supplier: 0, recipient: 0});
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
 	const [listInfo, setListInfo] = useState({
-		unitList: [],
+		logisticUnitList: [],
 		measureUnitList: [],
+		assortmentGroup: [],
+		supplierList: [],
+		recipientList: [],
 		active: [{ id: 1, name: 'Nie' }, { id: 2, name: 'Tak' }],
-		to_order: [{ id: 1, name: 'Nie' }, { id: 2, name: 'Tak' }],
 	})
 	const [progressStatus, setProgressStatus] = useState(false);
 
@@ -37,7 +39,13 @@ const Assortment = props => {
 					history.push('/login');
 				} else {
 					if (response.code === 200) {
-						setListInfo({ ...listInfo, unitList: response.data.unitList, measureUnitList: response.data.measureUnitList });
+						setListInfo({ ...listInfo, 
+							logisticUnitList: response.data.logisticUnitList, 
+							measureUnitList: response.data.measureUnitList, 
+							assortmentGroup: response.data.assortmentGroup, 
+							supplierList: response.data.supplierList, 
+							recipientList: response.data.recipientList 
+						});
 					}
 				}
 			})
