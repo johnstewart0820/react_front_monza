@@ -38,7 +38,7 @@ import {
 } from '../views';
 
 
-export const LOGGED_IN_ROUTES = [
+const LOGGED_IN_ROUTES = [
 	{
 		component: AssortmentView,
 		title: "Lista Asortymentów",
@@ -208,6 +208,8 @@ const getRoutes = arr => (
 		/> 
 	))
 )
+
+export const getPageTitle = path => LOGGED_IN_ROUTES.find( page => page.path === path )?.title;
 
 export const LoggedRoutes = () => (
 	<Switch>

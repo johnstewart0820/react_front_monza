@@ -5,7 +5,7 @@ import PATHS from "routes/paths";
 import API from "apis/API";
 import Auth from "apis/auth";
 import storage from "utils/storage";
-import { LOGGED_IN_ROUTES, LoggedRoutes, UnLoggedRoutes } from "../routes/Routes";
+import { getPageTitle, LoggedRoutes, UnLoggedRoutes } from "../routes/Routes";
 
 import { Loader } from "components";
 import { Main as MainLayout, Minimal as MinimalLayout } from "layouts";
@@ -23,13 +23,7 @@ export const AuthContextProvider = () => {
 
 	const Routes = useMemo(() => logged ? LoggedRoutes : UnLoggedRoutes, [ logged ]);
 	const Layout = useMemo(() => logged ? MainLayout : MinimalLayout, [ logged ]);
-
-	const page_title = useMemo(() => (
-		logged
-			? LOGGED_IN_ROUTES.find( page => page.path === location.pathname )?.title
-			: ""
-
-	), [ location.pathname ]);
+	const page_title = useMemo(() => logged ? getPageTitle( location.pathname) : "", [ location.pathname ]);
 
 	
 	const logIn = () => {
