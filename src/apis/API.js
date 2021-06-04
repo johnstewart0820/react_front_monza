@@ -11,14 +11,4 @@ API.interceptors.request.use( config => {
     return config;
 });
 
-API.interceptors.response.use( res => {
-
-	if ( res.data.code === 401 ) {
-		storage.removeStorage('token');
-		storage.removeStorage('role');
-	}
-
-	return res;
-});
-
 export default API;

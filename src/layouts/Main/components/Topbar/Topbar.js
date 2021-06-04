@@ -1,51 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { SiteInfoContextConsumer } from "App";
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { AppBar, Button, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import MenuIcon from '@material-ui/icons/Menu';
 import useStyles from './style';
-import { Alert } from 'components';
 import { useHistory } from "react-router-dom";
 import storage from '../../../../utils/storage';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faFont, faLink, faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import AuthContext from 'context/AuthContext';
+import PATHS from 'routes/paths';
 
 const Topbar = props => {
-  const { className, title, onSidebarOpen, onSidebarClose, openSidebar, ...rest } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [avatarOpen, setAvatarOpen] = useState(Boolean(anchorEl));
-  const classes = useStyles();
-  let history = useHistory();
 
-  const onMaxTopbar = () => {
-    if (openSidebar === false)
-      onSidebarOpen();
-    else
-      onSidebarClose();
-  }
+	const classes = useStyles();
+	const history = useHistory();
+	const logOut = useContext( AuthContext ).logOut;
 
-  const handleClose = () => {
-    setAnchorEl(null);
-    setAvatarOpen(false);
-  };
+	const { className, title, onSidebarOpen, onSidebarClose, openSidebar, ...rest } = props;
+	const [anchorEl, setAnchorEl] = useState(null);
+	const [avatarOpen, setAvatarOpen] = useState(Boolean(anchorEl));
+	
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-    setAvatarOpen(true);
-  };
+	const onMaxTopbar = () => {
+		if (openSidebar === false)
+			onSidebarOpen();
+		else
+			onSidebarClose();
+	}
 
-  const handleLogout = () => {
-    handleClose();
-    storage.removeStorage('token');
-    history.push('/login');
-  }
+	const handleClose = () => {
+		setAnchorEl(null);
+		setAvatarOpen(false);
+	};
 
-  const handleProfile = () => {
-    history.push('/profile');
-  }
+	const handleMenu = (event) => {
+		setAnchorEl(event.currentTarget);
+		setAvatarOpen(true);
+	};
+
+	const handleLogout = () => {
+		handleClose();
+		logOut();
+	}
+
+	const handleProfile = () => {
+		history.push( PATHS.Profile );
+	}
 
   return (
     <AppBar

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link as RouterLink, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -17,17 +17,21 @@ import auth from '../../apis/auth';
 import storage from 'utils/storage';
 import constants from '../../utils/constants';
 import { useToasts } from 'react-toast-notifications'
+import AuthContext from 'context/AuthContext';
+import PATHS from 'routes/paths';
 
 const SignIn = props => {
 	const { history } = props;
+
+	const logIn = useContext( AuthContext ).logIn;
 	const classes = useStyles();
 	const global_classes = useGlobalStyles();
-	const [checkStatus, setCheckStatus] = useState(false);
-	const [input, setInput] = useState({});
-	const [error, setError] = useState({});
-	const [progressStatus, setProgressStatus] = useState(false);
-	const [tryLogin, setTryLogin] = useState(false);
-  const { addToast } = useToasts()
+	const [ checkStatus, setCheckStatus] = useState(false);
+	const [ input, setInput] = useState({});
+	const [ error, setError] = useState({});
+	const [ progressStatus, setProgressStatus] = useState(false);
+	const [ tryLogin, setTryLogin] = useState(false);
+  	const { addToast } = useToasts()
 
 	const handleChange = event => {
 		let arr = JSON.parse(JSON.stringify(input));
@@ -38,6 +42,7 @@ const SignIn = props => {
 	const handleRememberMe = event => {
 		setCheckStatus(!checkStatus);
 	};
+
 	const handleSignIn = event => {
 		setTryLogin(true);
 		if ((error && ((error.email && error.email.length > 0) || (error.password && error.password.length > 0))) || !input.email || !input.password) {
@@ -57,7 +62,8 @@ const SignIn = props => {
 					if (response.code === 200) {
 						setProgressStatus(false);
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/assortment'); }, 1000);
+
+						logIn();
 
 					} else {
 						setProgressStatus(false);
@@ -132,8 +138,8 @@ const SignIn = props => {
 							<Button variant="outlined" className={clsx(classes.btnLogin, global_classes.outline_button)} onClick={handleSignIn}>
 								Zaloguj się
 							</Button>
-							<Link to="/forgotpassword" component={RouterLink} className={classes.btnForgot}>Odzyskaj hasło</Link>
-							<Link to="/register" component={RouterLink} className={classes.btnRegister}>Zarejestruj się <ArrowRightAltIcon className={classes.arrow}/></Link>
+							<Link to={ PATHS.ForgotPassword } component={RouterLink} className={classes.btnForgot}>Odzyskaj hasło</Link>
+							<Link to={ PATHS.Registration } component={RouterLink} className={classes.btnRegister}>Zarejestruj się <ArrowRightAltIcon className={classes.arrow}/></Link>
 						</div>
 					</div>
 				</div>

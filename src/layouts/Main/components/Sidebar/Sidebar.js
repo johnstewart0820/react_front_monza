@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer } from '@material-ui/core';
 
-import PATHS from "../../../../routes/paths";
+import PATHS from "routes/paths";
 import { SidebarNav } from './components';
 import useStyles from './style';
 

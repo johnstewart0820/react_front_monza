@@ -10,8 +10,9 @@ import theme from './theme';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './assets/scss/index.scss';
 import validators from './common/validators';
-import Routes from './Routes';
-import AppContainer from './AppContainer';
+
+import { AuthContextProvider } from "./context/AuthContext";
+
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { pl } from 'date-fns/locale'
 import LuxonUtils from '@date-io/luxon';
@@ -19,6 +20,7 @@ import { ToastProvider } from 'react-toast-notifications';
 const SiteInfoContext = React.createContext(null);
 const SiteInfoContextConsumer = SiteInfoContext.Consumer;
 const browserHistory = createBrowserHistory();
+
 
 Chart.helpers.extend(Chart.elements.Rectangle.prototype, {
 	draw: chartjs.draw
@@ -36,9 +38,7 @@ export default class App extends Component {
 				<ToastProvider>
 					<ThemeProvider theme={theme()}>
 						<Router history={browserHistory}>
-							<AppContainer>
-								<Routes />
-							</AppContainer>
+							<AuthContextProvider/>
 						</Router>
 					</ThemeProvider>
 				</ToastProvider>

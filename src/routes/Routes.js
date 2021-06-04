@@ -200,8 +200,6 @@ const UNLOGGED_ROUTES = [
 	}
 ];
 
-const NotFound = props => <Route component={ NotFoundView } />
-
 export const LoggedRoutes = () => (
 	<Switch>
 
@@ -216,12 +214,16 @@ export const LoggedRoutes = () => (
 			/> 
 		))}
 
-		<NotFound />
+		<RouteWithLayout 
+			layout={ MainLayout }
+			component={ NotFoundView }
+		/>
 	</Switch>
 )
 
 export const UnLoggedRoutes = () => (
 	<Switch>
+
 		{ UNLOGGED_ROUTES.map( route => ( 
 			<RouteWithLayout 
 				key={ route.path }
@@ -231,7 +233,7 @@ export const UnLoggedRoutes = () => (
 			/> 
 		)) }
 
-		<NotFound />
+		<Redirect to={ PATHS.Login } />
 	</Switch>
 )
 
