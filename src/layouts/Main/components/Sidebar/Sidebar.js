@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer } from '@material-ui/core';
 
+import PATHS from "../../../../routes/paths";
 import { SidebarNav } from './components';
-import { withRouter } from 'react-router-dom';
 import useStyles from './style';
 
 const Sidebar = props => {
@@ -16,67 +17,67 @@ const Sidebar = props => {
 		},
 		{
 			title: 'Asortyment',
-			href: '/assortment',
+			href: PATHS.Assortment,
 		},
 		{
 			title: 'Grupy asortymentowe',
-			href: '/group_assortment',
+			href: PATHS.AssortmentGroup,
 		},
 		{
 			title: 'Magazyny',
-			href: '/warehouse',
+			href: PATHS.Warehouse,
 		},
 		{
 			title: 'Grupy magazynów',
-			href: '/warehouse_group',
+			href: PATHS.WarehouseGroup,
 		},
 		{
 			title: 'Kontrahenci',
-			href: '/contractor',
+			href: PATHS.Contractor,
 		},
 		{
 			title: 'Jednostki miary',
-			href: '/measure_unit',
+			href: PATHS.MeasureUnit,
 		},
 		{
 			title: 'Operacje magazynowe',
-			href: '/warehouse_operation',
+			href: PATHS.WarehouseOperation,
 		},
 		{
 			label: 'ANALIZA DOT. KLASYFIKACJI ASORTYMENTU'
 		},
 		{
 			title: 'Analiza ABC i XYZ',
-			href: '/analyze_xyz',
+			href: PATHS.AnalyzeXyz,
 		},
 		{
 			label: 'ANALIZA WSKAŹNIKÓW ZAPASÓW'
 		},
-		{
-			title: 'Analiza wskaźników zapasów',
-			href: '/analyze_indicator',
-		},
+		// {
+		// 	title: 'Analiza wskaźników zapasów',
+		// 	href: '/analyze_indicator',
+		// },
 		{
 			label: 'ANALIZA KOSZTÓW ZAPASÓW'
 		},
-		{
-			title: 'Koszt uzupełnienia zapasu średniego',
-			href: '/average_stock_cost',
-		},
-		{
-			title: 'Koszt uzupełnienia zapasu',
-			href: '/stock_cost',
-		},
-		{
-			title: 'Całkowity koszt gromadzenia i truzymania zapasów',
-			href: '/total_stock_cost',
-		},
+		// {
+		// 	title: 'Koszt uzupełnienia zapasu średniego',
+		// 	href: '/average_stock_cost',
+		// },
+		// {
+		// 	title: 'Koszt uzupełnienia zapasu',
+		// 	href: '/stock_cost',
+		// },
+		// {
+		// 	title: 'Całkowity koszt gromadzenia i truzymania zapasów',
+		// 	href: '/total_stock_cost',
+		// },
 		{
 			label: 'PROFIL'
 		},
 		{
 			title: 'Edytuj',
-			href: '/profile',
+			href: PATHS.Profile,
 		},
 	];
 
