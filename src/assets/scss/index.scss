@@ -67,3 +67,17 @@ body {
 .c-links__item {
 	z-index: 10000 !important;
 }
+
+img, svg {
+	max-width: 100%;
+	height: auto;
+}
+
+
+.MuiDrawer-paper { 
+	svg.logo {
+		path:not(.green) {
+			fill: #fff;
+		}
+	}
+}

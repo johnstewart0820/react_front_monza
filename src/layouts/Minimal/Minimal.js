@@ -4,6 +4,7 @@ import { useTheme } from '@material-ui/styles';
 import useStyles from './style';
 import { Grid } from '@material-ui/core';
 
+import { ReactComponent as LogoSvg } from "assets/svg/logo.svg";  
 
 const Minimal = props => {
   	const { children } = props;
@@ -13,7 +14,9 @@ const Minimal = props => {
   return (
 		<div className={ classes.root }>
 			<Grid container spacing={3} justify="center">
-				<img className={ classes.logo } src="/images/logo.png" alt="Logo" />        
+				
+				<LogoSvg/>
+
 				<main className={ classes.content }>
 					{ children }
 				</main>

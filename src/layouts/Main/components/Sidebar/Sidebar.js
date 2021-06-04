@@ -6,6 +6,7 @@ import { Drawer } from '@material-ui/core';
 
 import PATHS from "routes/paths";
 import { SidebarNav } from './components';
+import { ReactComponent as LogoSvg } from "assets/svg/logo.svg";  
 import useStyles from './style';
 
 const Sidebar = props => {
@@ -93,9 +94,11 @@ const Sidebar = props => {
 				{...rest}
 				className={clsx(classes.root, className)}
 			>
+				
 				<div className={classes.logoBlock}>
-					<img src="/images/black_logo.png" className={classes.main_logo} aria-hidden="true" alt="Logo Państwowy Fundusz Rehabilitacji Osób Niepełnosprawnych"/>
+					<LogoSvg/>
 				</div>
+
 				<SidebarNav
 					className={classes.nav}
 					pages={items}
