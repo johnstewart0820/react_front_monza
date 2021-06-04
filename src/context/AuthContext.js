@@ -23,9 +23,9 @@ export const AuthContextProvider = () => {
 
 	const Routes = useMemo(() => logged ? LoggedRoutes : UnLoggedRoutes, [ logged ]);
 	const Layout = useMemo(() => logged ? MainLayout : MinimalLayout, [ logged ]);
-	const page_title = useMemo(() => logged ? getPageTitle( location.pathname) : "", [ location.pathname ]);
+	const page_title = useMemo(() => logged ? getPageTitle( location.pathname) : "", [ logged, location.pathname ]);
 
-	
+
 	const logIn = () => {
 		setLogged( true );
 		history.push( PATHS.Assortment );

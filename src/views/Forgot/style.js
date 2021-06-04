@@ -12,7 +12,8 @@ const useStyles = makeStyles(theme => ({
 
   description: {
     width: 620,
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
+	fontFamily: "'Roboto', sans-serif;"
   },
 
   form: {

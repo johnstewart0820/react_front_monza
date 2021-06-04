@@ -1,67 +1,46 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 html {
-  height: 100%;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	height: 100%;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background-color: #e4e6e9;
+  	background-color: #e4e6e9;
 }
 
 a {
   text-decoration: none;
 }
 
-#root {
-}
-
-.react-toast-notifications__container {
-  font-family: 'roboto';
-}
-
 ::-webkit-scrollbar {
-  width: 3px;
-  height: 0px;
+	width: 3px;
+	height: 0px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: darkgray; 
+	background: darkgray; 
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #2E6228; 
+	background: #2E6228; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #3da239; 
+	background: #3da239; 
 }
 
 body {
-  background-color: #f4f6f8;
-  height: 100%;
-  &.links-underline{
-		a:not(.button-link){
-			text-decoration: underline;
-    }
-    button {
-      text-decoration: underline;
-    }
-    &.language-switcher{
-      li {
-        text-decoration: underline !important;
-      }
-    }
-  }
-
+	background-color: #f4f6f8;
+	height: 100%;
 }
 
 .c-links__item {
@@ -72,7 +51,6 @@ img, svg {
 	max-width: 100%;
 	height: auto;
 }
-
 
 .MuiDrawer-paper { 
 	svg.logo {
