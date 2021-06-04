@@ -14,6 +14,7 @@ import useGlobalStyles from 'assets/style/styles';
 import clsx from 'clsx';
 import ArrowRightAltIcon from '@material-ui/icons/ArrowRightAlt';
 import { useToasts } from 'react-toast-notifications';
+import PATHS from 'routes/paths';
 
 const SignUp = props => {
   const classes = useStyles();
@@ -105,7 +106,7 @@ const SignUp = props => {
               <Button variant="outlined" className={clsx(classes.btnLogin, global_classes.outline_button)} onClick={handleSignUp}>
                 Zarejestruj się
               </Button>
-              <Link to="/login" component={RouterLink} className={classes.btnRegister}>Mam konto - zaloguj się<ArrowRightAltIcon className={classes.arrow}/></Link>
+              <Link to={ PATHS.Login } component={RouterLink} className={classes.btnRegister}>Mam konto - zaloguj się<ArrowRightAltIcon className={classes.arrow}/></Link>
             </div>
           </div>
         </div>

@@ -17,6 +17,7 @@ import { DeleteModal, SingleSelect } from 'components';
 import { withRouter } from 'react-router-dom';
 import useStyles from './style';
 import useGlobalStyles from 'assets/style/styles';
+import PATHS from 'routes/paths';
 
 const SortTable = (props) => {
   const classes = useStyles();
@@ -106,12 +107,12 @@ const SortTable = (props) => {
           {rows.map((item, indx) => {
             return (
               <TableRow key={indx} className={global_classes.root}>
-                <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.id}</TableCell>
-                <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.type_name}</TableCell>
-                <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.name}</TableCell>
-                <TableCell onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>{item.description}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.MeasureUnitEdit( item.id ))}>{item.id}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.MeasureUnitEdit( item.id ))}>{item.type_name}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.MeasureUnitEdit( item.id ))}>{item.name}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.MeasureUnitEdit( item.id ))}>{item.description}</TableCell>
                 <TableCell>
-                  <IconButton component="span" className={global_classes.iconButton} onClick={() => history.push(`/measure_unit/edit/${item.id}`)}>
+                  <IconButton component="span" className={global_classes.iconButton} onClick={() => history.push( PATHS.MeasureUnitEdit( item.id ))}>
                     <EditOutlinedIcon className={global_classes.icon} />
                   </IconButton>
                   <IconButton variant="outlined" component="span" className={global_classes.iconButton} onClick={() => handleSelectedItem(item.id)}>

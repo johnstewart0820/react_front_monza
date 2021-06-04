@@ -9,6 +9,7 @@ import contractor from 'apis/contractor';
 import { contractor_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
+import PATHS from 'routes/paths';
 
 const Contractor = props => {
 	const { children, history } = props;
@@ -40,7 +41,7 @@ const Contractor = props => {
 	}, [searchOption]);
 
 	const handleCreate = () => {
-		history.push('/contractor/create');
+		history.push( PATHS.ContractorCreate );
 	}
 
 	const handleImport = (rows) => {

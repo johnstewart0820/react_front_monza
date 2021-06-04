@@ -26,6 +26,7 @@ import useStyles from './style';
 import useGlobalStyles from 'assets/style/styles';
 import main from 'utils/main';
 import dateUtil from 'utils/moment';
+import PATHS from 'routes/paths';
 
 const SortTable = (props) => {
   const classes = useStyles();
@@ -53,7 +54,7 @@ const SortTable = (props) => {
   }
 
   const handleEditItem = (id) => {
-    history.push(`/warehouse_operation/edit/${id}`)
+    history.push( PATHS.WarehouseOperationEdit( id ))
   }
 
   return (

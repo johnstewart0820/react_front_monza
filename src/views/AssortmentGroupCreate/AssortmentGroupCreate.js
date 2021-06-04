@@ -4,6 +4,7 @@ import useStyles from './style';
 import { Grid } from '@material-ui/core';
 import assortment_group from 'apis/assortment_group';
 import { useToasts } from 'react-toast-notifications';
+import PATHS from 'routes/paths';
 
 const AssortmentGroupCreate = props => {
 	const { children, history } = props;
@@ -31,7 +32,7 @@ const AssortmentGroupCreate = props => {
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/group_assortment') }, 1000);
+						setTimeout(function () { history.push( PATHS.AssortmentGroup ) }, 1000);
 					} else {
 						addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
 					}

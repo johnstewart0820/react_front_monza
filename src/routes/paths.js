@@ -14,6 +14,7 @@ const PATHS = {
 	WarehouseGroupEdit: ( id = ":id" ) => `/warehouse-group/edit/${ id }`,
 
 	Contractor: "/contractor",
+	ContractorCreate: "/contractor/create",
 	ContractorEdit: ( id = ":id" ) => `/contractor/edit/${ id }`,
 
 	MeasureUnit: "/measure-unit",

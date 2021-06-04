@@ -13,6 +13,7 @@ import auth from '../../apis/auth';
 import constants from '../../utils/constants';
 import clsx from 'clsx';
 import { useToasts } from 'react-toast-notifications';
+import PATHS from 'routes/paths';
 
 const Forgot = props => {
 	const { history } = props;
@@ -89,7 +90,7 @@ const Forgot = props => {
 							<Button variant="outlined" className={clsx(classes.btnForgot, global_classes.outline_button)} onClick={handleForgot}>
 								Wyślij
 							</Button>
-							<Link to="/login" component={RouterLink} className={classes.btnBack}>
+							<Link to={ PATHS.Login } component={RouterLink} className={classes.btnBack}>
 								Wróć do poprzedniej strony
 							</Link>
 						</div>

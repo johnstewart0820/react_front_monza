@@ -4,6 +4,7 @@ import useStyles from './style';
 import { Grid } from '@material-ui/core';
 import { useToasts } from 'react-toast-notifications';
 import measurement_unit from 'apis/measurement_unit';
+import PATHS from 'routes/paths';
 
 const MeasureUnitEdit = props => {
 	const { children, history } = props;
@@ -43,7 +44,7 @@ const MeasureUnitEdit = props => {
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/measure_unit') }, 1000);
+						setTimeout(function () { history.push( PATHS.MeasureUnit ) }, 1000);
 					} else {
 						addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
 					}
@@ -57,7 +58,7 @@ const MeasureUnitEdit = props => {
 			.then(response => {
 				if (response.code === 200) {
 					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					setTimeout(function () { history.push('/measure_unit') }, 1000);
+					setTimeout(function () { history.push( PATHS.MeasureUnit ) }, 1000);
 				}
 			})
 	}

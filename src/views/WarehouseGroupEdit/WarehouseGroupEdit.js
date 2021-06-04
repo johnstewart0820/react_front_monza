@@ -4,6 +4,7 @@ import useStyles from './style';
 import { Grid } from '@material-ui/core';
 import { useToasts } from 'react-toast-notifications';
 import warehousegroup from 'apis/warehousegroup';
+import PATHS from 'routes/paths';
 
 const WarehouseGroupEdit = props => {
 	const { children, history } = props;
@@ -44,7 +45,7 @@ const WarehouseGroupEdit = props => {
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/warehouse_group') }, 1000);
+						setTimeout(function () { history.push( PATHS.WarehouseGroup ) }, 1000);
 					} else {
 						addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
 					}
@@ -58,7 +59,7 @@ const WarehouseGroupEdit = props => {
 			.then(response => {
 				if (response.code === 200) {
 					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					setTimeout(function () { history.push('/warehouse_group') }, 1000);
+					setTimeout(function () { history.push( PATHS.WarehouseGroup ) }, 1000);
 				}
 			})
 	}

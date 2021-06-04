@@ -9,6 +9,7 @@ import measurement_unit from 'apis/measurement_unit';
 import { measure_unit_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
+import PATHS from 'routes/paths';
 
 const MeasureUnit = props => {
 	const { children, history } = props;
@@ -46,7 +47,7 @@ const MeasureUnit = props => {
 	}, [searchOption]);
 
 	const handleCreate = () => {
-		history.push('/measure_unit/create');
+		history.push( PATHS.MeasureUnitCreate );
 	}
 
 	const handleImport = (rows) => {

@@ -17,6 +17,7 @@ import { DeleteModal, SingleSelect } from 'components';
 import { withRouter } from 'react-router-dom';
 import useStyles from './style';
 import useGlobalStyles from 'assets/style/styles';
+import PATHS from 'routes/paths';
 
 const SortTable = (props) => {
   const classes = useStyles();
@@ -106,10 +107,10 @@ const SortTable = (props) => {
           {rows.map((item, indx) => {
             return (
               <TableRow key={indx} className={global_classes.root}>
-                <TableCell onClick={() => history.push(`/warehouse/edit/${item.id}`)}>{item.id}</TableCell>
-                <TableCell onClick={() => history.push(`/warehouse/edit/${item.id}`)}>{item.name}</TableCell>
-                <TableCell onClick={() => history.push(`/warehouse/edit/${item.id}`)}>{item.description}</TableCell>
-                <TableCell onClick={() => history.push(`/warehouse/edit/${item.id}`)}>
+                <TableCell onClick={() => history.push( PATHS.WarehouseEdit( item.id ))}>{item.id}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.WarehouseEdit( item.id ))}>{item.name}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.WarehouseEdit( item.id ))}>{item.description}</TableCell>
+                <TableCell onClick={() => history.push( PATHS.WarehouseEdit( item.id ))}>
                   {item.active === 1 ? 
                     <CheckIcon fontSize="small" className={classes.check_icon}/> 
                     : 
@@ -117,7 +118,7 @@ const SortTable = (props) => {
                   }
                 </TableCell>
                 <TableCell>
-                  <IconButton component="span" className={global_classes.iconButton} onClick={() => history.push(`/warehouse/edit/${item.id}`)}>
+                  <IconButton component="span" className={global_classes.iconButton} onClick={() => history.push( PATHS.WarehouseEdit( item.id ))}>
                     <EditOutlinedIcon className={global_classes.icon} />
                   </IconButton>
                   <IconButton variant="outlined" component="span" className={global_classes.iconButton} onClick={() => handleSelectedItem(item.id)}>

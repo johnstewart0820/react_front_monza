@@ -10,6 +10,7 @@ import {warehouse_group_header} from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
 import warehouse from 'apis/warehouse';
+import PATHS from 'routes/paths';
 
 const WarehouseGroup = props => {
 	const { children, history } = props;
@@ -37,7 +38,7 @@ const WarehouseGroup = props => {
 	}, [searchOption]);
 
 	const handleCreate = () => {
-		history.push('/warehouse_group/create');
+		history.push( PATHS.WarehouseGroupCreate );
 	}
 
 	const handleImport = (rows) => {

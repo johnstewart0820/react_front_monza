@@ -9,6 +9,7 @@ import { warehouse_operation_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
 import moment from 'utils/moment';
+import PATHS from 'routes/paths';
 
 const WarehouseOperation = props => {
 	const { children, history } = props;
@@ -53,7 +54,7 @@ const WarehouseOperation = props => {
 	
 
 	const handleCreate = () => {
-		history.push('/warehouse_operation/create');
+		history.push( PATHS.WarehouseOperationCreate );
 	}
 
 	const handleImport = (rows) => {
@@ -83,7 +84,7 @@ const WarehouseOperation = props => {
 	}
 
 	const handleGenerate = () => {
-		history.push('/warehouse_operation/generate');
+		history.push( PATHS.WarehouseOperationGenerate );
 	}
 
 	const requestSort = (pSortBy) => {

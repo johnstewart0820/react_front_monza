@@ -23,6 +23,7 @@ import { DeleteModal, SingleSelect } from 'components';
 import { withRouter } from 'react-router-dom';
 import useStyles from './style';
 import useGlobalStyles from 'assets/style/styles';
+import PATHS from 'routes/paths';
 
 const SortTable = (props) => {
   const classes = useStyles();
@@ -50,7 +51,7 @@ const SortTable = (props) => {
   }
 
   const handleEditItem = (id) => {
-    history.push(`/assortment/edit/${id}`)
+    history.push( PATHS.AssortmentEdit( id ))
   }
 
   return (

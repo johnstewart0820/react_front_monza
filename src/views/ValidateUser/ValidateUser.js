@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { ProgressBar } from 'components';
 import auth from '../../apis/auth';
 import { useToasts } from 'react-toast-notifications';
+import PATHS from 'routes/paths';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
@@ -25,11 +26,11 @@ const ValidateUser = props => {
         if (response.code === 200) {
           setProgressStatus(false);
           addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-          setTimeout(function () { history.push('/login'); }, 1000);
+          setTimeout(function () { history.push( PATHS.Login ); }, 1000);
         } else {
           setProgressStatus(false);
           addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
-          setTimeout(function () { history.push('/login'); }, 3000);
+          setTimeout(function () { history.push( PATHS.Login ); }, 3000);
         }
       })
   }, []);

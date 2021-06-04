@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import warehouse_operation from 'apis/warehouse_operation';
 import { useToasts } from 'react-toast-notifications';
 import main from 'utils/main';
+import PATHS from 'routes/paths';
 
 const WarehouseOperationEdit = props => {
 	const { children, history } = props;
@@ -61,7 +62,7 @@ const WarehouseOperationEdit = props => {
 				} else {
 					if (response.code === 200) {
 						addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-						setTimeout(function () { history.push('/warehouse_operation') }, 1000);
+						setTimeout(function () { history.push( PATHS.WarehouseOperation )}, 1000);
 					} else {
 						addToast(response.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true })
 					}
@@ -79,7 +80,7 @@ const WarehouseOperationEdit = props => {
 			.then(response => {
 				if (response.code === 200) {
 					addToast(response.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true })
-					setTimeout(function () { history.push('/warehouse_operation') }, 1000);
+					setTimeout(function () { history.push( PATHS.WarehouseOperation )}, 1000);
 				}
 			})
 	}

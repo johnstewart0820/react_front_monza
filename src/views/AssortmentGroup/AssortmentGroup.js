@@ -9,6 +9,7 @@ import assortment_group from 'apis/assortment_group';
 import {assortment_group_header} from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
+import PATHS from 'routes/paths';
 
 const AssortmentGroup = props => {
 	const { children, history } = props;
@@ -35,7 +36,7 @@ const AssortmentGroup = props => {
 	}, [searchOption]);
 
 	const handleCreate = () => {
-		history.push('/group_assortment/create');
+		history.push( PATHS.AssortmentGroupCreate );
 	}
 
 	const handleImport = (rows) => {

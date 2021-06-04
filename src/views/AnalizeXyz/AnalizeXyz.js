@@ -8,6 +8,7 @@ import assortment from 'apis/assortment';
 import { assortment_header } from 'utils/xlsx_headers';
 import { ProgressBar } from 'components';
 import main from 'utils/main';
+import PATHS from 'routes/paths';
 
 const AnalizeXyz = props => {
 	const { children, history } = props;
@@ -49,7 +50,7 @@ const AnalizeXyz = props => {
 	}, [searchOption]);
 
 	const handleCreate = () => {
-		history.push('/assortment/create');
+		history.push( PATHS.AssortmentCreate );
 	}
 
 	const handleExport = () => {
