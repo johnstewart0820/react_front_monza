@@ -38,7 +38,7 @@ import {
 } from '../views';
 
 
-const LOGGED_IN_ROUTES = [
+export const LOGGED_IN_ROUTES = [
 	{
 		component: AssortmentView,
 		title: "Lista Asortymentów",

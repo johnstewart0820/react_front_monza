@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 import PATHS from "routes/paths";
 import API from "apis/API";
 import Auth from "apis/auth";
 import storage from "utils/storage";
-import { LoggedRoutes, UnLoggedRoutes } from "../routes/Routes";
+import { LOGGED_IN_ROUTES, LoggedRoutes, UnLoggedRoutes } from "../routes/Routes";
 
 import { Loader } from "components";
 import { Main as MainLayout, Minimal as MinimalLayout } from "layouts";
@@ -16,6 +16,7 @@ const AuthContext = React.createContext();
 export const AuthContextProvider = () => {
 
 	const history = useHistory();
+	const location = useLocation();
 
 	const [ loading, setLoading ] = useState( true );
 	const [ logged, setLogged ] = useState( false );
@@ -23,7 +24,14 @@ export const AuthContextProvider = () => {
 	const Routes = useMemo(() => logged ? LoggedRoutes : UnLoggedRoutes, [ logged ]);
 	const Layout = useMemo(() => logged ? MainLayout : MinimalLayout, [ logged ]);
 
+	const page_title = useMemo(() => (
+		logged
+			? LOGGED_IN_ROUTES.find( page => page.path === location.pathname )?.title
+			: ""
 
+	), [ location.pathname ]);
+
+	
 	const logIn = () => {
 		setLogged( true );
 		history.push( PATHS.Assortment );
@@ -69,7 +77,11 @@ export const AuthContextProvider = () => {
 			logOut: () => logOut()
 		}}>
 			{ loading && <Loader style={{ height: "100vh", background: "#f4f6f8" }}/> }
-			{ !loading && <Layout> <Routes/> </Layout> }
+			{ !loading && 
+				<Layout title={ page_title }> 
+					<Routes/> 
+				</Layout> 
+			}
 		</AuthContext.Provider>
 	)
 }

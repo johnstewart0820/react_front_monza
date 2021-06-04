@@ -38,52 +38,59 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Main = props => {
-  const { children } = props;
+	const { children } = props;
 
-  const classes = useStyles();
-  const theme = useTheme();
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'), {
-    defaultMatches: true
-  });
+	const classes = useStyles();
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'), {
+		defaultMatches: true
+	});
 
-  const [openSidebar, setOpenSidebar] = useState(true);
+	const [openSidebar, setOpenSidebar] = useState(true);
 
-  const handleSidebarOpen = () => {
-    setOpenSidebar(true);
-  };
+	const handleSidebarOpen = () => {
+		setOpenSidebar(true);
+	};
 
-  const handleSidebarClose = () => {
-    setOpenSidebar(false);
-  };
+	const handleSidebarClose = () => {
+		setOpenSidebar(false);
+	};
 
-  const shouldOpenSidebar = openSidebar;
+	const shouldOpenSidebar = openSidebar;
 
-  useEffect(() => {
-    if(isDesktop === false) {
-      setOpenSidebar(false);
-    }
-  }, [isDesktop]);
+	useEffect(() => {
+		if( isDesktop === false ) {
+			setOpenSidebar(false);
+		}
+	}, [isDesktop]);
 
   return (
-    <div
-      className={clsx({
-        [classes.root]: true,
-        [classes.shiftContent]: openSidebar && isDesktop
-      })}
-    >
-      <Topbar onSidebarOpen={handleSidebarOpen} onSidebarClose={handleSidebarClose} openSidebar={openSidebar} className={!openSidebar || !isDesktop ? classes.topbar_max : classes.topbar_min } title={props.title}/>
-      <Sidebar
-        onClose={handleSidebarClose}
-        open={shouldOpenSidebar}
-        variant={isDesktop ? 'persistent' : 'temporary'}
-      />
-      <main className={classes.content}>
-        <div className={classes.mainContainer}>
-          {children}
-        </div>
-      </main>
-    </div>
-  );
+		<div
+			className={clsx({
+				[classes.root]: true,
+				[classes.shiftContent]: openSidebar && isDesktop
+			})}
+		>
+			<Topbar 
+				onSidebarOpen={ handleSidebarOpen } 
+				onSidebarClose={ handleSidebarClose } 
+				openSidebar={ openSidebar } 
+				className={ !openSidebar || !isDesktop ? classes.topbar_max : classes.topbar_min } 
+				title={ props.title }
+			/>
+
+			<Sidebar
+				onClose={ handleSidebarClose }
+				open={ shouldOpenSidebar }
+				variant={ isDesktop ? 'persistent' : 'temporary'}
+			/>
+			<main className={ classes.content }>
+				<div className={ classes.mainContainer }>
+					{ children }
+				</div>
+			</main>
+		</div>
+	);
 };
 
 Main.propTypes = {
