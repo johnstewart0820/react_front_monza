@@ -1,8 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import PATHS from "./paths";
-import { RouteWithLayout } from '../components';
-import { Main as MainLayout, Minimal as MinimalLayout } from '../layouts';
 
 import {
   Assortment as AssortmentView,
@@ -200,39 +198,28 @@ const UNLOGGED_ROUTES = [
 	}
 ];
 
+
+const getRoutes = arr => (
+	arr.map( route => ( 
+		<Route 
+			exact
+			key={ route.path }
+			{...route}
+		/> 
+	))
+)
+
 export const LoggedRoutes = () => (
 	<Switch>
-
 		<Redirect exact from="/" to={ PATHS.Assortment } />
-
-		{ LOGGED_IN_ROUTES.map( route => ( 
-			<RouteWithLayout 
-				key={ route.path }
-				exact
-				layout={ MainLayout }
-				{ ...route }
-			/> 
-		))}
-
-		<RouteWithLayout 
-			layout={ MainLayout }
-			component={ NotFoundView }
-		/>
+		{ getRoutes( LOGGED_IN_ROUTES )}
+		<Route component={ NotFoundView }/>
 	</Switch>
 )
 
 export const UnLoggedRoutes = () => (
 	<Switch>
-
-		{ UNLOGGED_ROUTES.map( route => ( 
-			<RouteWithLayout 
-				key={ route.path }
-				exact
-				layout={ MinimalLayout }
-				{ ...route }
-			/> 
-		)) }
-
+		{ getRoutes( UNLOGGED_ROUTES )}
 		<Redirect to={ PATHS.Login } />
 	</Switch>
 )
