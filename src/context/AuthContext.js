@@ -65,7 +65,7 @@ export const AuthContextProvider = () => {
 			logIn: () => logIn(),
 			logOut: () => logOut()
 		}}>
-			{ loading && <Loader style={{ height: "100vh", background: "#ddd" }}/> }
+			{ loading && <Loader style={{ height: "100vh", background: "#f4f6f8" }}/> }
 			{ !loading && <Routes/> }
 		</AuthContext.Provider>
 	)
