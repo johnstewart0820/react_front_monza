@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react';
-import { SiteInfoContextConsumer } from "App";
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { AppBar, Button, IconButton, Menu, MenuItem, Typography } from '@material-ui/core';
