@@ -59,3 +59,23 @@ img, svg {
 		}
 	}
 }
+
+.flex { 
+	display: flex;
+}
+
+.df-ac {
+	display: flex;
+	align-items: center;
+}
+
+.df-centered {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.df-column {
+	display: flex;
+	flex-direction: column;
+}

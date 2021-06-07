@@ -11,3 +11,4 @@ export { default as SingleDetail } from './SingleDetail';
 export { default as FullDetail } from './FullDetail';
 export { default as DeleteModal } from './DeleteModal';
 export { default as Loader } from './Loader';
+export { default as SortTable } from './SortTable';
