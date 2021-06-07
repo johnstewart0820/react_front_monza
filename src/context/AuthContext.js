@@ -55,9 +55,9 @@ export const AuthContextProvider = () => {
 
 	useEffect(() => {
 		
-		API.interceptors.response.use( res => {
-			if ( res.data.code === 401 ) logOut();
-			return res;
+		API.interceptors.response.use( data => {
+			if ( data.code === 401 ) logOut();
+			return data;
 		});
 
 		checkIsTokenValid();

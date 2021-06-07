@@ -1,66 +1,27 @@
 import API from "./API";
 
 const MeasurementUnit = {
-    getInfo: () => {
-        return API
-            .get(`/measurement_unit/info`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getInfo: () => API.get(`/measurement_unit/info`),
 
-    get: id => {
-        return API
-            .get(`/measurement_unit`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    get: id => API.get(`/measurement_unit`, { params: { id }}),
 
-    export: (id) => {
-        return API
-            .get(`/measurement_unit/export`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    export: () => API.get(`/measurement_unit/export`),
 
-    create: data => {
-        return API
-            .post(`/measurement_unit`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create: data => API.post(`/measurement_unit`, { data }),
 
-    create_list: data => {
-        return API
-            .post(`/measurement_unit/list`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create_list: data => API.post(`/measurement_unit/list`, { data }),
 
-    getListByOption: (sort_option, count, page, search_option) => {
-        return API
-            .post(`/measurement_unit/filter_list`, {
-                sort_option: sort_option,
-                count: count,
-                page: page,
-                search_option: search_option
-            })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getListByOption: ( sort_option, count, page, search_option ) => 
+		API.post(`/measurement_unit/filter_list`, {
+			sort_option: sort_option,
+			count: count,
+			page: page,
+			search_option: search_option
+		}),
 
-    update: (data, id) => {
-        return API
-            .put(`/measurement_unit`, { data, id })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    update: ( data, id ) => API.put(`/measurement_unit`, { data, id }),
 
-    delete: id => {
-        return API
-            .delete(`/measurement_unit`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    }
+    delete: id => API.delete(`/measurement_unit`, { params: { id }})
 }
 
 export default MeasurementUnit;

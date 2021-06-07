@@ -1,69 +1,27 @@
 import API from "./API";
 
 const Assortment = {
-    getInfo: () => {
-        return API
-            .get(`/assortment/info`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getInfo: () => API.get(`/assortment/info`),
 
-    get: id => {
-        return API
-            .get(`/assortment`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    get: id => API.get(`/assortment`, { params: { id }}),
 
-    export: id => {
-        return API
-            .get(`/assortment/export`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    export: () => API.get(`/assortment/export`),
 
-    create: data => {
-        return API
-            .post(`/assortment`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create: data => API.post(`/assortment`, { data }),
 
-    create_list: data => {
-        return API
-            .post(`/assortment/list`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create_list: data => API.post(`/assortment/list`, { data }),
 
-    getListByOption: (sort_option, count, page, search_option) => {
-        return API
-            .post(`/assortment/filter_list`, {
-                sort_option: sort_option,
-                count: count,
-                page: page,
-                search_option: search_option
-            })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getListByOption: ( sort_option, count, page, search_option ) => 
+		API.post(`/assortment/filter_list`, {
+			sort_option: sort_option,
+			count: count,
+			page: page,
+			search_option: search_option
+		}),
 
-    update: ( data, id) => {
-        return API
-            .put(`/assortment`, {
-                data: data,
-                id: id
-            })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    update: ( data, id) => API.put(`/assortment`, { data, id }),
 
-    delete: id => {
-        return API
-            .delete(`/assortment`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    }
+    delete: id => API.delete(`/assortment`, { params: { id }})
 }
 
 export default Assortment;

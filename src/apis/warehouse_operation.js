@@ -1,66 +1,27 @@
 import API from "./API";
 
 const WarehouseOperation = {
-    getInfo: () => {
-        return API
-            .get(`/warehouse_operation/info`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getInfo: () => API.get(`/warehouse_operation/info`),
 
-    get: id => {
-        return API
-            .get(`/warehouse_operation`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    get: id => API.get(`/warehouse_operation`, { params: { id }}),
 
-    export: () => {
-        return API
-            .get(`/warehouse_operation/export`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    export: () => API.get(`/warehouse_operation/export`),
 
-    create: data => {
-        return API
-            .post(`/warehouse_operation`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create: data => API.post(`/warehouse_operation`, { data }),
 
-    create_list: (data) => {
-        return API
-            .post(`/warehouse_operation/list`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create_list: data => API.post(`/warehouse_operation/list`, { data }),
 
-    getListByOption: (sort_option, count, page, search_option) => {
-        return API
-            .post(`/warehouse_operation/filter_list`, {
-                sort_option: sort_option,
-                count: count,
-                page: page,
-                search_option: search_option
-            })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getListByOption: ( sort_option, count, page, search_option ) => 
+		API.post(`/warehouse_operation/filter_list`, {
+			sort_option: sort_option,
+			count: count,
+			page: page,
+			search_option: search_option
+		}),
 
-    update: ( data, id )  => {
-        return API
-            .put(`/warehouse_operation`, { data, id })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    update: ( data, id ) => API.put(`/warehouse_operation`, { data, id }),
 
-    delete: id => {
-        return API
-            .delete(`/warehouse_operation`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    }
+    delete: id => API.delete(`/warehouse_operation`, { params: { id }})
 }
 
 export default WarehouseOperation;

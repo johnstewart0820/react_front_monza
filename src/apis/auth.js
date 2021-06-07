@@ -8,38 +8,28 @@ const Auth = {
     login: ( email, password ) => {
         return API
             .post(`/auth/login`, { email, password })
-            .then( res => {
-                if ( res.data.code === 200) {
-                    storage.setStorage('token', res.data.data.token);
+            .then( data => {
+
+                if ( data.code === 200) {
+                    storage.setStorage('token', data.data.token);
                 }
 
-                return res.data;
-
-            }).catch( error => error )
+                return data;
+            })
     },
 
-    register: ( email, password ) => {
-        return API
-            .post(`/auth/register`, { email, password })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    register: ( email, password ) => API.post(`/auth/register`, { email, password }),
 
     validate: token => {
         return axios
-            .post(`${process.env.REACT_APP_BACKEND_URL}/auth/verify`, 
-				{}, { headers: authHeader( token )}
-			)
+            .post(`${process.env.REACT_APP_BACKEND_URL}/auth/verify`, {}, { 
+				headers: authHeader( token )
+			})
             .then( res => res.data )
 			.catch( err => err )
     },
     
-    forgot: email => {
-        return API
-            .post(`/auth/forgot`, { email })
-            .then( res => res.data )
-			.catch( err => err )
-    },
+    forgot: email => API.post(`/auth/forgot`, { email }),
 
     reset_password: ( password, token ) => {
         return axios
@@ -48,12 +38,7 @@ const Auth = {
 			.catch( err => err )
     },
 	
-    validateToken: () => {
-        return API
-        	.get(`/user/validate_token`)
-        	.then( res => res.data )
-			.catch( err => err )  
-    }
+    validateToken: () => API.get(`/user/validate_token`)
 }
 
 export default Auth;

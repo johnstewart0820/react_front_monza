@@ -33,9 +33,9 @@ const Assortment = props => {
 	useEffect(() => {
 		assortment
 			.getInfo()
-			.then(response => {
-				if (response.code === 200) {
-					setListInfo({ ...listInfo, unitList: response.data.unitList, measureUnitList: response.data.measureUnitList });
+			.then( data => {
+				if ( data.code === 200) {
+					setListInfo({ ...listInfo, unitList: data.unitList, measureUnitList: data.measureUnitList });
 				}
 			})
 	}, []);
@@ -102,10 +102,11 @@ const Assortment = props => {
 	const handleSearch = () => {
 		assortment
 			.getListByOption(sortOption, 25, page, searchOption)
-			.then(response => {
-				if (response.code === 200) {
-					setData(response.data.list);
-					setTotal(response.data.count);
+			.then( data => {
+				console.log( data );
+				if ( data.code === 200) {
+					setData( data.list);
+					setTotal( data.count);
 				}
 			})
 	}

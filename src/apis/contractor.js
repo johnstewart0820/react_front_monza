@@ -1,66 +1,27 @@
 import API from "./API";
 
 const Contractor = {
-    getInfo: () => {
-        return API
-            .get(`/contractor/info`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getInfo: () => API.get(`/contractor/info`),
 
-    get: id => {
-        return API
-            .get(`/contractor`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    get: id => API.get(`/contractor`, { params: { id }}),
 
-    export: id => {
-        return API
-            .get(`/contractor/export`)
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    export: () => API.get(`/contractor/export`),
 
-    create: data => {
-        return API
-            .post(`/contractor`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create: data => API.post(`/contractor`, { data }),
 
-    create_list: data => {
-        return API
-            .post(`/contractor/list`, { data })
-			.then( res => res.data )
-			.catch( error => error )
-    },
+    create_list: data => API.post(`/contractor/list`, { data }),
 
-    getListByOption: (sort_option, count, page, search_option) => {
-        return API
-            .post(`/contractor/filter_list`, {
-                sort_option: sort_option,
-                count: count,
-                page: page,
-                search_option: search_option
-            })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    getListByOption: ( sort_option, count, page, search_option ) => 
+		API.post(`/contractor/filter_list`, {
+			sort_option: sort_option,
+			count: count,
+			page: page,
+			search_option: search_option
+		}),
 
-    update: (data, id) => {
-        return API
-            .put(`/contractor`, { data, id })
-            .then( res => res.data )
-			.catch( error => error )
-    },
+    update: ( data, id ) => API.put(`/contractor`, { data, id }),
 
-    delete: id => {
-        return API
-            .delete(`/contractor`, { params: { id }})
-            .then( res => res.data )
-			.catch( error => error )
-    }
+    delete: id => API.delete(`/contractor`, { params: { id }})
 }
 
 export default Contractor;
