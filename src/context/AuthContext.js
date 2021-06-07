@@ -43,8 +43,8 @@ export const AuthContextProvider = () => {
 		storage.getStorage("token")
 			? Auth
 				.validateToken()
-				.then( response => {
-					if ( response.code === 200 ) {
+				.then( data => {
+					if ( data.code === 200 ) {
 						setLogged( true );
 						setLoading( false );
 					}
