@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Table, Breadcrumb } from "components";
+import { Table, Breadcrumb, FormInputC, FormSelect } from "components";
 
 const breadcrumbs = [ 'Monitorowanie poziomu zapasów', 'Zamówienia' ];
 
@@ -22,7 +22,34 @@ const mock_rows = [
 	[ 12, "01/05/2021", "Odbiorca3", "12.04.2021", "ul. Główna 1", 555562, "14 dni", "XXXXXXXXXX", "787 77 77", ""],  // { component: <div></div> , props: {} }],
 	[ 13, "01/05/2021", "Odbiorca3", "12.04.2021", "ul. Główna 1", 555562, "14 dni", "XXXXXXXXXX", "787 77 77", ""], // { component: <div></div> , props: {} }],
 	[ 14, "01/05/2021", "Odbiorca3", "12.04.2021", "ul. Główna 1", 555562, "14 dni", "XXXXXXXXXX", "787 77 77", ""], // { component: <div></div> , props: {} }],
+]
 
+
+const filter_fields = [
+	{ 
+		component: FormInputC,
+		name: "id",
+		props: {
+			name: "id",
+			placeholder: "Wpicz ID"
+		} 
+	},
+	{ 
+		component: FormInputC,
+		name: "nazwa",
+		props: {
+			name: "nazwa",
+			placeholder: "Wpicz Nazwę"
+		} 
+	},
+	{},
+	{},
+	{},
+	{},
+	{},
+	{},
+	{},
+	null
 ]
 
 const Orders = props => {
@@ -35,6 +62,7 @@ const Orders = props => {
 				extra_classes="orders-table"
 				head={ table_head }
 				rows={ mock_rows }
+				filter_fields={ filter_fields }
 			/>
 		</>
 	)

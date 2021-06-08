@@ -1,11 +1,11 @@
 import React from 'react';
+import { TableFilters }  from 'components';
 
 import "./table.scss";
 
 const Table = props => {
 
-	const { head, rows, extra_classes, onSortClick } = props;
-
+	const { head, rows, filter_fields, extra_classes, onSortClick, onFilterChange } = props;
 
 	return (
 		<div className={`table ${ extra_classes || "" }`}>
@@ -15,7 +15,7 @@ const Table = props => {
 					head.map(({ label, sort }, i ) => (
 						<div 
 							key={ i } 
-							className="table__th"
+							className={`table__th column-${ i + 1 }`}
 							style={{ cursor: sort ? "pointer" : null }}
 							onClick={ () => sort && onSortClick( i )}
 						>
@@ -45,13 +45,20 @@ const Table = props => {
 				}
 			</div>
 
+			{ filter_fields && 
+				<TableFilters
+					fields={ filter_fields }
+					onChange={ onFilterChange }
+				/>
+			}
+
 			<div className="table__body">
 				{ rows && !!rows?.length && 
 					rows.map(( row, i ) => (
 						<div key={ i } className="table__tr flex">
 							{ row && !!row.length &&
 								row.map(( item, j ) => (
-									<div key={ j } className="table__td">
+									<div key={ j } className={`table__td column-${ j + 1 }`}>
 										{ item.component 
 											? <item.component {...item.props }/>
 											: item

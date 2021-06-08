@@ -1,0 +1,22 @@
+
+.form-select {
+
+	width: 100%;
+	margin-bottom: 16px;
+
+	select, label { 
+		display: block;
+		width: 100%;
+	}
+
+	label {
+		margin-bottom: 10px;
+	}
+
+	select {
+		background-color: transparent;
+		border: 1px solid #767676;
+		padding: 15px 10px;
+	}
+}
+

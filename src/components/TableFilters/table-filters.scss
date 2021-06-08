@@ -1,0 +1,17 @@
+.table-filters {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #E1E3E5;
+
+	.form-select select,
+	.form-input input {
+		padding-top: 8px;
+		padding-bottom: 8px;
+		border-width: 0.2px;
+		border-color: #E1E3E5;
+	}
+
+	.form-input, .form-select {
+		margin-bottom: 0;
+	}
+}

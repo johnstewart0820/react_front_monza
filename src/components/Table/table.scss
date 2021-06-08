@@ -7,6 +7,8 @@
 
 .table__head {
 	border-bottom: 1px solid #E1E3E5;
+	align-items: center;
+	min-height: 56px;
 }
 
 .table__tr {
@@ -25,7 +27,7 @@
 }
 
 .table__th {
-	padding-top: 15px;
+	padding-top: 5px;
 	padding-bottom: 5px;
 }
 

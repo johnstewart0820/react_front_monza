@@ -12,3 +12,6 @@ export { default as FullDetail } from './FullDetail';
 export { default as DeleteModal } from './DeleteModal';
 export { default as Loader } from './Loader';
 export { default as Table } from './Table';
+export { default as TableFilters } from './TableFilters';
+export { default as FormSelect } from './FormSelect';
+export { default as FormInputC } from './FormInputC';

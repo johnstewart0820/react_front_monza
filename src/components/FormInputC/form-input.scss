@@ -1,0 +1,27 @@
+
+.form-input {
+
+	width: 100%;
+	margin-bottom: 16px;
+
+
+	input, label { 
+		display: block;
+		width: 100%;
+	}
+
+	label {
+		margin-bottom: 10px;
+	}
+
+	input {
+		background-color: #fff;
+		border: 1px solid #767676;
+		padding: 15px 10px;
+	}
+
+	input[readonly] {
+		background-color: #f2f2f2;
+		outline: none;
+	}
+}
