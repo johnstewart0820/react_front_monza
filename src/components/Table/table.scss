@@ -29,9 +29,25 @@
 .table__th {
 	padding-top: 5px;
 	padding-bottom: 5px;
+
+	.sort-by {
+		
+		margin-left: 4px;
+		min-width: 8px;
+		justify-content: center;
+
+		svg {
+			margin: 2px 0;
+		}
+	}
 }
 
 .table__td {
 	padding-top: 15px;
 	padding-bottom: 15px;
+}
+
+.table__empty {
+	padding: 25px 15px;
+	text-align: center;
 }

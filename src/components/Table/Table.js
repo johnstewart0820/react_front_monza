@@ -1,11 +1,12 @@
 import React from 'react';
 import { TableFilters }  from 'components';
+import { AngleUpSvg, AngleBottomSvg } from "svg/icons";
 
 import "./table.scss";
 
 const Table = props => {
 
-	const { head, rows, filter_fields, extra_classes, onSortClick, onFilterChange } = props;
+	const { head, rows, sort_by, order, filter_fields, extra_classes, onSortClick, onFilterChange } = props;
 
 	return (
 		<div className={`table ${ extra_classes || "" }`}>
@@ -15,31 +16,31 @@ const Table = props => {
 					head.map(({ label, sort }, i ) => (
 						<div 
 							key={ i } 
-							className={`table__th column-${ i + 1 }`}
+							className={`table__th df-ac column-${ i + 1 }`}
 							style={{ cursor: sort ? "pointer" : null }}
-							onClick={ () => sort && onSortClick( i )}
+							onClick={ () => sort && onSortClick && onSortClick( i )}
 						>
 							{ label }
 
-							{/* { sort && 
+							{ sort && 
 								<div className="sort-by df-column">
 									{ i !== sort_by && 
 										<>
-											<RectangleUpIcon/>
-											<RectangleDownIcon/>
+											<AngleUpSvg/>
+											<AngleBottomSvg/>
 										</>
 									}	
 
 									{ i === sort_by && 
 										<>
 											{ order === "asc" 
-												? <RectangleDownIcon/>
-												: <RectangleUpIcon/>
+												? <AngleBottomSvg/>
+												: <AngleUpSvg/>
 											}		
 										</>
 									}
 								</div>
-							} */}
+							}
 						</div>
 					))
 				}

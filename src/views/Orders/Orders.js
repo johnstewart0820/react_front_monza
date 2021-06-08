@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 
 import { Table, Breadcrumb, FormInputC, FormSelect } from "components";
 
@@ -16,13 +16,6 @@ const table_head = [
 	{ label: "NIP", sort: true },
 	{ label: "Akcje" }
 ];
-
-
-const mock_rows = [
-	[ 12, "01/05/2021", "Odbiorca3", "12.04.2021", "ul. Główna 1", 555562, "14 dni", "XXXXXXXXXX", "787 77 77", ""],  // { component: <div></div> , props: {} }],
-	[ 13, "01/05/2021", "Odbiorca3", "12.04.2021", "ul. Główna 1", 555562, "14 dni", "XXXXXXXXXX", "787 77 77", ""], // { component: <div></div> , props: {} }],
-	[ 14, "01/05/2021", "Odbiorca3", "12.04.2021", "ul. Główna 1", 555562, "14 dni", "XXXXXXXXXX", "787 77 77", ""], // { component: <div></div> , props: {} }],
-]
 
 
 const filter_fields = [
@@ -92,6 +85,14 @@ const filter_fields = [
 
 const Orders = props => {
 
+	const [ sort_option, setSortOption ] = useState({ sortBy: 0, sortOrder: "asc" });
+	const [ filters_data, setFiltersData ] = useState({ name: '', index: '', gtin: '', unit: 0, measure_unit: 0, active: 0, to_order: 0 });
+	const [ page, setPage ] = useState(1);
+	const [ data, setData ] = useState([]);
+
+	const rows = useMemo(() => [], [ data ]);
+
+
 	return (
 		<>
 			<Breadcrumb list={ breadcrumbs } />
@@ -99,8 +100,10 @@ const Orders = props => {
 			<Table
 				extra_classes="orders-table"
 				head={ table_head }
-				rows={ mock_rows }
+				rows={ rows }
 				filter_fields={ filter_fields }
+				order={ sort_option.sortOrder }
+				sort_by={ sort_option.sortBy }
 			/>
 		</>
 	)
