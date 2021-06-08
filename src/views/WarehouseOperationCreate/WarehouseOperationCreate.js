@@ -94,10 +94,10 @@ const WarehouseOperationCreate = props => {
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Wielkość przyjęć [jedn. m.] [jedn. log.]" name="received" type="number" value={data.received} handleChange={handleChange}/>
+							<FormInput title="Wielkość przyjęć [j. m.] [jedn. log.]" name="received" type="number" value={data.received} handleChange={handleChange}/>
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Wielkość wydań [jedn. m.] [jedn. log.]" name="release" type="number" value={data.release} handleChange={handleChange}/>
+							<FormInput title="Wielkość wydań [j. m.] [jedn. log.]" name="release" type="number" value={data.release} handleChange={handleChange}/>
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>
@@ -123,10 +123,10 @@ const WarehouseOperationCreate = props => {
 					</Grid>
 					<Grid container spacing={2}>
 						<Grid item xs={6}>
-							<FormInput title="Zapas [jedn. m.] [jedn. log.]" name="stock" type="number" value={data.stock} handleChange={handleChange} />
+							<FormInput title="Zapas [j. m.] [jedn. log.]" name="stock" type="number" value={data.stock} handleChange={handleChange} />
 						</Grid>
 						<Grid item xs={6}>
-							<FormInput title="Wielkość zamówienia [jedn. m.] [jedn. log.]" name="order" type="number" value={data.order} handleChange={handleChange} />
+							<FormInput title="Wielkość zamówienia [j. m.] [jedn. log.]" name="order" type="number" value={data.order} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>

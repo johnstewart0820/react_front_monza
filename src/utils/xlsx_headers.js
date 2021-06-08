@@ -26,9 +26,6 @@ const assortment_header = [
     header: 'Grupa asortymentowa',
     attr: 'assortment_group_name' 
   }, {
-    header: 'Typ asortymentu',
-    attr: 'assortment_type' 
-  }, {
     header: 'Prawdopodobieństwo \nObsługi popytu [%]',
     attr: 'service_demand' ,
     type: 'number',

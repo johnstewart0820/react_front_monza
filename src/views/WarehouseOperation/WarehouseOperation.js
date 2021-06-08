@@ -19,7 +19,7 @@ const WarehouseOperation = props => {
 	const { addToast } = useToasts()
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({ start_date: moment.getStringFromDateFormat(new Date()), end_date: moment.getStringFromDateFormat(new Date()), assortment: 0, assortment_group: 0, measure_unit: 0, logistic_unit: 0,  warehouse: 0, received: '', release: '', order: '', handling_delivery_cost: '' });
+	const [searchOption, setSearchOption] = useState({ start_date: null, end_date: moment.getStringFromDateFormat(new Date()), assortment: 0, assortment_group: 0, measure_unit: 0, logistic_unit: 0,  warehouse: 0, received: '', release: '', order: '', stock: '', handling_delivery_cost: '' });
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);

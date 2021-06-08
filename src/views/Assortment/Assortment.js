@@ -18,7 +18,7 @@ const Assortment = props => {
 	const { addToast } = useToasts()
 
 	const [sortOption, setSortOption] = useState({ sortBy: 0, sortOrder: "asc" });
-	const [searchOption, setSearchOption] = useState({ id: '', name: '', index: '', gtin: '', measure_unit: 0, logistic_unit: 0, active: 0, supplier: 0, recipient: 0});
+	const [searchOption, setSearchOption] = useState({ id: '', name: '', index: '', gtin: '', measure_unit: 0, logistic_unit: 0, active: 0});
 	const [page, setPage] = useState(1);
 	const [total, setTotal] = useState(0);
 	const [data, setData] = useState([]);
@@ -26,8 +26,6 @@ const Assortment = props => {
 		logisticUnitList: [],
 		measureUnitList: [],
 		assortmentGroup: [],
-		supplierList: [],
-		recipientList: [],
 		active: [{ id: 1, name: 'Nie' }, { id: 2, name: 'Tak' }],
 	})
 	const [progressStatus, setProgressStatus] = useState(false);

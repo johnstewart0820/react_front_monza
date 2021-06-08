@@ -99,11 +99,8 @@ const AssortmentUpdate = props => {
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>
-						<Grid item xs={6}>
+						<Grid item xs={12}>
 							<FormInput title="Grupa asortymentowa" name="assortment_group" type="single" value={data.assortment_group} list={listInfo.assortmentGroup} handleChange={handleChange} />
-						</Grid>
-						<Grid item xs={6}>
-							<FormInput title="Typ asortymentu" name="assortment_type" type="input" value={data.assortment_type} handleChange={handleChange} />
 						</Grid>
 					</Grid>
 					<Grid container spacing={2}>

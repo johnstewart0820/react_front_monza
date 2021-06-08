@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Table,
   TableHead,
@@ -8,7 +8,6 @@ import {
   TableSortLabel,
   IconButton,
   Card,
-  TextareaAutosize,
   Typography,
   Grid
 } from '@material-ui/core';
@@ -17,8 +16,6 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
 import { DeleteModal, SingleSelect } from 'components';
 import { withRouter } from 'react-router-dom';
 import useStyles from './style';
@@ -137,24 +134,6 @@ const SortTable = (props) => {
             </TableSortLabel>
             </TableCell>
             <TableCell>
-              <TableSortLabel
-                active={sortOption.sortBy === 7}
-                direction={sortOption.sortOrder}
-                onClick={() => requestSort(7)}
-              >
-                Dostawca
-            </TableSortLabel>
-            </TableCell>
-            <TableCell>
-              <TableSortLabel
-                active={sortOption.sortBy === 8}
-                direction={sortOption.sortOrder}
-                onClick={() => requestSort(8)}
-              >
-                Odbiorca
-              </TableSortLabel>
-            </TableCell>
-            <TableCell>
               <TableSortLabel align="right">
                 Akcje
             </TableSortLabel>
@@ -196,20 +175,6 @@ const SortTable = (props) => {
                 list={listInfo.active}
               />
             </TableCell>
-            <TableCell>
-              <SingleSelect
-                value={searchOption.supplier}
-                handleChange={(value) => setSearchOption({ ...searchOption, supplier: value })}
-                list={listInfo.supplierList}
-              />
-            </TableCell>
-            <TableCell>
-              <SingleSelect
-                value={searchOption.recipient}
-                handleChange={(value) => setSearchOption({ ...searchOption, recipient: value })}
-                list={listInfo.recipientList}
-              />
-            </TableCell>
             <TableCell></TableCell>
           </TableRow>
           {rows.map((item, indx) => (
@@ -228,8 +193,6 @@ const SortTable = (props) => {
                     <CloseIcon fontSize="small" className={classes.close_icon} />
                   }
                 </TableCell>
-                <TableCell>{item.supplier_name}</TableCell>
-                <TableCell>{item.recipient_name}</TableCell>
                 <TableCell>
                   <IconButton component="span" className={!item.preview ? global_classes.iconButton : global_classes.greenIconButton} onClick={() => handlePreview(indx)} >
                     <VisibilityIcon className={global_classes.icon} />
@@ -274,11 +237,19 @@ const SortTable = (props) => {
                           </Grid>
                           <Grid item xs={6}>
                             <Typography variant="h6" style={{ marginBottom: 8 }}>
-                              Typ asortymentu
+                              Dostawca
                             </Typography>
                           </Grid>
                           <Grid item xs={6}>
-                            <input value={item.assortment_type} className={global_classes.input_box} />
+                            <input value={item.supplier_name} className={global_classes.input_box} />
+                          </Grid>
+                          <Grid item xs={6}>
+                            <Typography variant="h6" style={{ marginBottom: 8 }}>
+                              Odbiorca
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <input value={item.recipient_name} className={global_classes.input_box} />
                           </Grid>
                         </Grid>
                       </Grid>

@@ -82,7 +82,7 @@ const SortTable = (props) => {
                 direction={sortOption.sortOrder}
                 onClick={() => requestSort(2)}
               >
-                Nazwa podgrupy
+                Nazwa grupy asortymentowej
             </TableSortLabel>
             </TableCell>
             <TableCell>

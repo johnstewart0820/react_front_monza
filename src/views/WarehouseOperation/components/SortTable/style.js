@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
   plus_minus_icon: {
     color: theme.palette.green,
-  }
+  },
 }));
 
 export default useStyles;

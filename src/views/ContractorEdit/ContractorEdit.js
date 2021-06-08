@@ -84,9 +84,9 @@ const ContractorEdit = props => {
 							<FormInput title="GLN" name="GLN" type="input" value={data.GLN} handleChange={handleChange} />
 						</Grid>
 					</Grid>
-					<FormInput title="Aktywny" name="active" type="check_box" value={data.active} handleChange={handleChange} />
 					<FormInput title="Dostawca" name="supplier" type="check_box" value={data.supplier} handleChange={handleChange} />
 					<FormInput title="Odbiorca" name="recipient" type="check_box" value={data.recipient} handleChange={handleChange} />
+					<FormInput title="Aktywny" name="active" type="check_box" value={data.active} handleChange={handleChange} />
 					<Grid container spacing={2}>
 						<Grid item xs={5}>
 							<FormInput title="Ulica, numer budynku i lokalu" name="address" type="input" value={data.address} handleChange={handleChange} />

@@ -54,7 +54,7 @@ const SortTable = (props) => {
   }
 
   const handleEditItem = (id) => {
-    history.push( PATHS.WarehouseOperationEdit( id ))
+    history.push(PATHS.WarehouseOperationEdit(id))
   }
 
   return (
@@ -196,10 +196,10 @@ const SortTable = (props) => {
                 >
                   <div>
                     <div>
-                      Koszt obsługi
-                  </div>
+                      Zapas
+                    </div>
                     <div>
-                      i dostawy
+                      [SZT]
                   </div>
                   </div>
                 </TableSortLabel>
@@ -210,6 +210,18 @@ const SortTable = (props) => {
                   direction={sortOption.sortOrder}
                   onClick={() => requestSort(11)}
                 >
+                  <div>
+                    <div>
+                      Koszt obsługi
+                  </div>
+                    <div>
+                      i dostawy
+                  </div>
+                  </div>
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel>
                   Akcje
                 </TableSortLabel>
               </TableCell>
@@ -218,7 +230,7 @@ const SortTable = (props) => {
           <TableBody>
             <TableRow>
               <TableCell>
-              <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
+                <input className={global_classes.input_box} value={searchOption.id} onChange={(e) => setSearchOption({ ...searchOption, id: e.target.value })} />
               </TableCell>
               <TableCell>
                 <div style={{ display: 'flex' }}>
@@ -288,6 +300,9 @@ const SortTable = (props) => {
                 <input className={global_classes.input_box} value={searchOption.order_quantity} onChange={(e) => setSearchOption({ ...searchOption, order_quantity: e.target.value })} />
               </TableCell>
               <TableCell>
+                <input className={global_classes.input_box} value={searchOption.stock} onChange={(e) => setSearchOption({ ...searchOption, stock: e.target.value })} />
+              </TableCell>
+              <TableCell>
                 <input className={global_classes.input_box} value={searchOption.handling_delivery_cost} onChange={(e) => setSearchOption({ ...searchOption, handling_delivery_cost: e.target.value })} />
               </TableCell>
               <TableCell></TableCell>
@@ -305,6 +320,7 @@ const SortTable = (props) => {
                   <TableCell>{item.received}</TableCell>
                   <TableCell>{item.release}</TableCell>
                   <TableCell>{item.order}</TableCell>
+                  <TableCell>{item.stock}</TableCell>
                   <TableCell>{item.handling_delivery_cost}</TableCell>
                   <TableCell>
                     <IconButton component="span" className={!item.preview ? global_classes.iconButton : global_classes.greenIconButton} onClick={() => handlePreview(indx)} >
@@ -346,14 +362,6 @@ const SortTable = (props) => {
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Zapas [j.m.]
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={6}>
-                              <input value={item.stock} className={global_classes.input_box} />
-                            </Grid>
-                            <Grid item xs={6}>
-                              <Typography variant="h6" style={{ marginBottom: 8 }}>
                                 Wartość zapasu [PLN]
                               </Typography>
                             </Grid>
@@ -370,7 +378,7 @@ const SortTable = (props) => {
                           <Grid container spacing={2}>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Liczba wydan [-] 
+                                Liczba wydan [-]
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
@@ -390,7 +398,7 @@ const SortTable = (props) => {
                             </Grid>
                             <Grid item xs={6}>
                               <Typography variant="h6" style={{ marginBottom: 8 }}>
-                                Wartość zamówienia [PLN]
+                                Wartość Zamówień [PLN]
                               </Typography>
                             </Grid>
                             <Grid item xs={6}>
