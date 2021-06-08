@@ -26,6 +26,8 @@ const PATHS = {
 	WarehouseOperationEdit: ( id = ":id" ) => `/warehouse-operation/edit/${ id }`,
 	WarehouseOperationGenerate: "/warehouse-operation/generate",
 
+	Orders: "/orders",
+
 	AnalyzeXyz: "/analyze-xyz",
 	AnalyzeXyzCreate: "/analyze-xyz/create",
 	AnalyzeXyzResult: "/analyze-xyz/result",

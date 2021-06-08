@@ -30,3 +30,4 @@ export { default as ResetPassword } from './ResetPassword';
 export { default as SignUp } from './SignUp';
 export { default as ValidateUser } from './ValidateUser';
 export { default as NotFound } from './NotFound';
+export { default as Orders } from './Orders';

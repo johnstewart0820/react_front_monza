@@ -35,6 +35,7 @@ import {
   SignUp as SignUpView,
   ValidateUser as ValidateUserView,
   NotFound as NotFoundView,
+  Orders as OrdersView
 } from '../views';
 
 
@@ -148,6 +149,11 @@ const LOGGED_IN_ROUTES = [
 		component: WarehouseOperationGenerateGraphView,
         title: "Generuj wykres",
         path: PATHS.WarehouseOperationGenerate 
+	},
+	{
+		component: OrdersView,
+		title: "Lista Zamówień",
+		path: PATHS.Orders	
 	},
 	{
 		component: AnalizeXyzView,
