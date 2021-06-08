@@ -28,7 +28,6 @@ const mock_rows = [
 const filter_fields = [
 	{ 
 		component: FormInputC,
-		name: "id",
 		props: {
 			name: "id",
 			placeholder: "Wpicz ID"
@@ -36,19 +35,58 @@ const filter_fields = [
 	},
 	{ 
 		component: FormInputC,
-		name: "nazwa",
 		props: {
-			name: "nazwa",
-			placeholder: "Wpicz Nazwę"
+			name: "number",
+			placeholder: "Wpisz numer"
 		} 
 	},
-	{},
-	{},
-	{},
-	{},
-	{},
-	{},
-	{},
+	{
+		component: FormSelect,
+		props: {
+			name: "purchaser",
+		}
+	},
+	{
+		component: FormSelect,
+		props: {
+			name: "doc_dated",
+		}
+	},
+	{
+		component: FormInputC,
+		props: {
+			name: "address",
+			placeholder: "Wpisz"
+		}
+	},
+	{
+		component: FormInputC,
+		props: {
+			name: "regon",
+			placeholder: "Wpisz"
+		}
+	},
+	{
+		component: FormInputC,
+		props: {
+			name: "payment",
+			placeholder: "Wpisz"
+		}
+	},
+	{
+		component: FormInputC,
+		props: {
+			name: "bank_acc",
+			placeholder: "Wpisz"
+		}
+	},
+	{
+		component: FormInputC,
+		props: {
+			name: "nip",
+			placeholder: "Wpisz NIP"
+		}
+	},
 	null
 ]
 

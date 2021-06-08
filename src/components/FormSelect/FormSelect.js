@@ -17,8 +17,11 @@ const FormSelect = props => {
 			<select 
 				id={ id }
 				name={ name }
+				defaultValue="0"
 				{...rest_props }
 			> 
+				<option disabled value="0"> Wybierz opcję </option>
+
 				{ options && !!options.length && 
 					options.map(({ value, label }) => (
 						<option key={ value } value={ value }> 

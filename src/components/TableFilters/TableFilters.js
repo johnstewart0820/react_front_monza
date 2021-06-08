@@ -11,14 +11,17 @@ const TableFilters = props => {
 				fields.map(( field, i ) => {
 
 					const FieldComponent = field?.component;
+					const name = field?.props?.name;
 
 					return (
-						<div className={`table__td column-${ i + 1 }`}>
+						<div 
+							key={ name || i } 
+							className={`table__td column-${ i + 1 }`}
+						>
 							{ FieldComponent && 
-								<FieldComponent 
-									key={ field.name } 
+								<FieldComponent  
 									{...field.props }
-									onChange={ e => console.log( field.name, e.target.value )}
+									onChange={ e => console.log( name, e.target.value )}
 								/> 
 							}
 						</div> 
