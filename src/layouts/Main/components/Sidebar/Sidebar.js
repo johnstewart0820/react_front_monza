@@ -14,7 +14,7 @@ const Sidebar = props => {
 	const classes = useStyles();
 	const items = [
 		{
-			label: 'MONITOROWANIE POZIOMU I STANU ZAPASÓW'
+			label: 'DANE PODSTAWOWE'
 		},
 		{
 			title: 'Asortyment',
@@ -45,34 +45,19 @@ const Sidebar = props => {
 			href: PATHS.WarehouseOperation,
 		},
 		{
-			label: 'ANALIZA DOT. KLASYFIKACJI ASORTYMENTU'
+			label: 'DOKUMENTY'
+		},
+		{
+			title: 'Zamówienia',
+			href: PATHS.Orders
+		},
+		{
+			label: 'ANALIZY'
 		},
 		{
 			title: 'Analiza ABC i XYZ',
 			href: PATHS.AnalyzeXyz,
 		},
-		{
-			label: 'ANALIZA WSKAŹNIKÓW ZAPASÓW'
-		},
-		// {
-		// 	title: 'Analiza wskaźników zapasów',
-		// 	href: '/analyze_indicator',
-		// },
-		{
-			label: 'ANALIZA KOSZTÓW ZAPASÓW'
-		},
-		// {
-		// 	title: 'Koszt uzupełnienia zapasu średniego',
-		// 	href: '/average_stock_cost',
-		// },
-		// {
-		// 	title: 'Koszt uzupełnienia zapasu',
-		// 	href: '/stock_cost',
-		// },
-		// {
-		// 	title: 'Całkowity koszt gromadzenia i truzymania zapasów',
-		// 	href: '/total_stock_cost',
-		// },
 		{
 			label: 'PROFIL'
 		},
