@@ -23,7 +23,7 @@ const filter_fields = [
 		component: FormInputC,
 		props: {
 			name: "id",
-			placeholder: "Wpicz ID"
+			placeholder: "Wpisz ID"
 		} 
 	},
 	{ 
