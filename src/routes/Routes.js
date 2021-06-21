@@ -25,6 +25,7 @@ import {
   WarehouseOperationCreate as WarehouseOperationCreateView,
   WarehouseOperationEdit as WarehouseOperationEditView,
   WarehouseOperationGenerateGraph as WarehouseOperationGenerateGraphView,
+	WarehouseOperationGraph as WarehouseOperationGraphView,
   AnalizeXyz as AnalizeXyzView,
   AnalizeXyzCreate as AnalizeXyzCreateView,
   AnalizeXyzResult as AnalizeXyzResultView,
@@ -149,6 +150,11 @@ const LOGGED_IN_ROUTES = [
 		component: WarehouseOperationGenerateGraphView,
         title: "Generuj wykres",
         path: PATHS.WarehouseOperationGenerate 
+	},
+	{
+		component: WarehouseOperationGraphView,
+        title: "Generuj wykres",
+        path: PATHS.WarehouseOperationGraph 
 	},
 	{
 		component: OrdersView,

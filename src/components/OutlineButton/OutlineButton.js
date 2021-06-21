@@ -29,12 +29,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const OutlineButton = props => {
-  const { title, onClick, icon, parent_class } = props;
+  const { title, onClick, icon, parent_class, disabled } = props;
 
   const classes = useStyles();
 
   return (
-    <Button variant="outlined" color="secondary" className={clsx(classes.filled_button, parent_class)} onClick={onClick}>
+    <Button variant="outlined" color="secondary" className={clsx(classes.filled_button, parent_class)} onClick={onClick} disabled={disabled}>
 			{icon}
 			{title}
 		</Button>

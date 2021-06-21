@@ -91,7 +91,7 @@ const FormInput = props => {
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={pl}>
       <div className={classes.main}>
         {
-          type !== "check_box" &&
+          type !== "check_box" && title !== null &&
           <Typography variant="h5" className={classes.title}>
             {title}
           </Typography>
@@ -102,26 +102,31 @@ const FormInput = props => {
           type === 'input' && <input className={classes.input_box} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} disabled={disabled} />
         }
         {
-          type === 'postal_code' && <input className={clsx({ [classes.input_box]: true, [classes.error]: error })} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} />
+          type === 'postal_code' && <input className={clsx({ [classes.input_box]: true, [classes.error]: error })} type="text" value={value} onChange={(e) => handleChange(name, e.target.value)} disabled={disabled} />
         }
         {
-          type === 'number' && <input className={classes.input_box} type="text" pattern="" value={value} onChange={(e) => handleCheckRegex(name, e.target.value)} />
+          type === 'number' && <input className={classes.input_box} type="text" pattern="" value={value} onChange={(e) => handleCheckRegex(name, e.target.value)} disabled={disabled} />
         }
         {
-          type === 'single' && <SingleSelect value={value} handleChange={(value) => handleChange(name, value)} list={list} />
+          type === 'single' && <SingleSelect value={value} handleChange={(value) => handleChange(name, value)} list={list} disabled={disabled} />
+        }
+        {
+          type === 'single_without_empty' && <SingleSelect value={value} handleChange={(value) => handleChange(name, value)} list={list} disabled={disabled} empty={true}/>
         }
         {
           type === 'radio' &&
-          <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange} raw>
-            <FormControlLabel value="female" control={<Radio />} label="Female" />
-            <FormControlLabel value="male" control={<Radio />} label="Male" />
-            <FormControlLabel value="other" control={<Radio />} label="Other" />
-            <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" />
+          <RadioGroup value={value} row onChange={(e) => handleChange(name, e.target.value)} disabled={disabled}>
+            {
+              list.map((item, index) => (
+                <FormControlLabel value={item.value} key={index} control={<Radio />} label={item.label} disabled={disabled} />
+              ))
+            }
           </RadioGroup>
         }
         {
           type === 'date' &&
           <KeyboardDatePicker
+            disabled={disabled}
             disableToolbar
             className={classes.date_picker}
             variant="inline"
@@ -134,6 +139,7 @@ const FormInput = props => {
         {
           type === "check_box" &&
           <FormControlLabel
+            disabled={disabled}
             className={classes.check_box}
             control={
               <Checkbox
@@ -145,7 +151,7 @@ const FormInput = props => {
           />
         }
         {
-          type === "area" && <TextareaAutosize className={classes.input_box} rows={10} value={value} onChange={(e) => handleChange(name, e.target.value)} />
+          type === "area" && <TextareaAutosize className={classes.input_box} disabled={disabled} rows={10} value={value} onChange={(e) => handleChange(name, e.target.value)} />
         }
         {
           type === "several_single" &&
@@ -154,10 +160,10 @@ const FormInput = props => {
               {value.map((item, index) => (
                 <React.Fragment>
                   <Grid item xs={10}>
-                    <SingleSelect value={item} handleChange={(_value) => handleChangeItem(index, _value)} list={getRemainList(item)} />
+                    <SingleSelect value={item} handleChange={(_value) => handleChangeItem(index, _value)} list={getRemainList(item)} disabled={disabled} />
                   </Grid>
                   <Grid item xs={2}>
-                    <OutlineButton icon={<DeleteIcon />} onClick={() => handleDeleteItem(index)} />
+                    <OutlineButton icon={<DeleteIcon />} onClick={() => handleDeleteItem(index)} disabled={disabled} />
                   </Grid>
                 </React.Fragment>
               ))
@@ -165,7 +171,7 @@ const FormInput = props => {
             </Grid>
             <Grid container justify="flex-end" spacing={2}>
               <Grid item>
-                <OutlineButton title={button_title} onClick={handleAddItem} />
+                <OutlineButton title={button_title} onClick={handleAddItem} disabled={disabled} />
               </Grid>
             </Grid>
           </React.Fragment>

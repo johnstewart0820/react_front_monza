@@ -6,7 +6,7 @@ import { Alert } from 'components';
 
 const SingleSelect = (props) => {
   const classes = useStyles();
-  const { value, handleChange, list, error, disabled, id} = props;
+  const { value, handleChange, list, error, disabled, id, empty} = props;
   useEffect(() => {
   }, []);
 
@@ -23,7 +23,7 @@ const SingleSelect = (props) => {
         className={classes.input_box}
 				aria-label="Wybierz opcję"
       >
-        <option aria-label="Wybierz opcję" value={0}>Wybierz opcję</option>
+        {!empty && <option aria-label="Wybierz opcję" value={0}>Wybierz opcję</option>}
         {
           list.map((item, index) => 
             <option key={index} value={item.id}>{item.name}</option>

@@ -20,6 +20,7 @@ export { default as WarehouseOperation } from './WarehouseOperation';
 export { default as WarehouseOperationCreate } from './WarehouseOperationCreate';
 export { default as WarehouseOperationEdit } from './WarehouseOperationEdit';
 export { default as WarehouseOperationGenerateGraph } from './WarehouseOperationGenerateGraph';
+export { default as WarehouseOperationGraph } from './WarehouseOperationGraph';
 export { default as AnalizeXyz } from './AnalizeXyz';
 export { default as AnalizeXyzCreate } from './AnalizeXyzCreate';
 export { default as AnalizeXyzResult } from './AnalizeXyzResult';

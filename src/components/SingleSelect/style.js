@@ -13,13 +13,13 @@ const useStyles = makeStyles(theme => ({
         },
     },
     input_box: {
-			'&.MuiInputBase-root.Mui-disabled': {
-				color: theme.palette.text.primary,				
-			},
-    '& svg': {
-			fill: theme.palette.text.secondary
-		},
-			color: theme.palette.text.primary,
+        '&.MuiInputBase-root.Mui-disabled': {
+            color: 'gray',
+        },
+        '& svg': {
+            fill: theme.palette.text.secondary
+        },
+        color: theme.palette.text.primary,
         '& select': {
             border: `1px solid ${theme.palette.gray}`,
             borderRadius: '0px'

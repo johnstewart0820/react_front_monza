@@ -9,6 +9,7 @@ export { default as ListViewController } from './ListViewController';
 export { default as PaginationController } from './PaginationController';
 export { default as SingleDetail } from './SingleDetail';
 export { default as FullDetail } from './FullDetail';
+export { default as MultiDetail } from './MultiDetail';
 export { default as DeleteModal } from './DeleteModal';
 export { default as Loader } from './Loader';
 export { default as Table } from './Table';

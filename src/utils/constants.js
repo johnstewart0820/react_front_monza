@@ -6,7 +6,7 @@ class constants {
   ENTER_SAME_PASSWORD = "Hasła muszą być takie same.";
   CHECK_POLICY = "Proszę zaakceptować regulamin.";
   WRONG_XLSX_HEADER = "Zaimportowany plik xlsx ma nieprawidłową wartość.";
-  
+  WRONG_DATA = "Musisz wypełnić formularz.";
   unauthenticated_url = [
       '/not-found',
       '/login',
