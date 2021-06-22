@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BreadcrumbBack, FormInput, FullDetail, MultiDetail, OutlineButton } from 'components';
+import { BreadcrumbBack, ColorBox, FormInput, FullDetail, MultiDetail, OutlineButton, SwatchPicker } from 'components';
 import useStyles from './style';
 import { Grid, Typography } from '@material-ui/core';
 import warehouse_operation from 'apis/warehouse_operation';
@@ -25,7 +25,7 @@ const WarehouseOperationGraph = props => {
 	const { addToast } = useToasts()
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Operacje magazynowe', 'Generuj wykres', 'Wygenerowany wykres'];
 	const [data, setData] = useState({ date_from: null, date_to: null, assortment: [], duration: '', value_quantity: '', chart_type: 'mixed', });
-	const [chart_filter, setChartFilter] = useState({ supply_show_chart_type: 1, received_show_chart_type: '1' });
+	const [chart_filter, setChartFilter] = useState({ supply_show_chart_type: 1, received_show_chart_type: '1', supply_color: '#00ff00', received_color: '#000000', releases_color: '#00ffff', order_color: '#ff0000'  });
 	const [listInfo, setListInfo] = useState({ assortment: [], warehouse: [], unit: [], measure_unit: [], contractor: [] });
 
 	const [table_data, setTableData] = useState([
@@ -207,13 +207,79 @@ const WarehouseOperationGraph = props => {
 									}}
 								>
 									<CartesianGrid stroke="#f5f5f5" />
-									<XAxis dataKey="name" label={{ value: 'Pages', position: 'insideBottomRight', offset: 0 }} scale="band" />
+									<XAxis dataKey="name" scale="band" />
 									<YAxis label={{ value: 'Index', angle: -90, position: 'insideLeft' }} />
 									<Tooltip />
 									<Legend />
-									<Area type="monotone" dataKey="Zapas" fill="#8884d8" stroke="#8884d8" strokeDasharray="5 5" />
-									<Bar dataKey="Zamowienia" barSize={20} fill="#413ea0" />
-									<Line type="monotone" dataKey="Wydania" stroke="#ff7300" />
+									{
+										chart_filter.supply && (
+											Number(chart_filter.supply_show_chart_type) !== 2 ?
+												Number(chart_filter.supply_filling_type) !== 2 ?
+													Number(chart_filter.supply_continuous_type) !== 2 ?
+														<Area type="monotone" dataKey="Zapas" fill={chart_filter.supply_color} stroke={chart_filter.supply_color}/>
+														:
+														<Area type="monotone" dataKey="Zapas" fill={chart_filter.supply_color} stroke={chart_filter.supply_color} strokeDasharray="5 5"/>
+													:
+													Number(chart_filter.supply_continuous_type) !== 2 ?
+														<Line type="monotone" dataKey="Zapas" stroke={chart_filter.supply_color} />
+														:
+														<Line type="monotone" dataKey="Zapas" stroke={chart_filter.supply_color} strokeDasharray="5 5"/>
+												:
+												<Bar dataKey="Zapas" barSize={20} fill={chart_filter.supply_color} />
+										)
+									}
+									{
+										chart_filter.received && (
+											Number(chart_filter.received_show_chart_type) !== 2 ?
+												Number(chart_filter.received_filling_type) !== 2 ?
+													Number(chart_filter.received_continuous_type) !== 2 ?
+														<Area type="monotone" dataKey="Przyęcia" fill={chart_filter.received_color} stroke={chart_filter.received_color}/>
+														:
+														<Area type="monotone" dataKey="Przyęcia" fill={chart_filter.received_color} stroke={chart_filter.received_color} strokeDasharray="5 5"/>
+													:
+													Number(chart_filter.received_continuous_type) !== 2 ?
+														<Line type="monotone" dataKey="Przyęcia" stroke={chart_filter.received_color} />
+														:
+														<Line type="monotone" dataKey="Przyęcia" stroke={chart_filter.received_color} strokeDasharray="5 5" />
+												:
+												<Bar dataKey="Przyęcia" barSize={20} fill={chart_filter.received_color} />
+										)
+									}
+									{
+										chart_filter.releases && (
+											Number(chart_filter.releases_show_chart_type) !== 2 ?
+												Number(chart_filter.releases_filling_type) !== 2 ?
+													Number(chart_filter.releases_continuous_type) !== 2 ?
+														<Area type="monotone" dataKey="Wydania" fill={chart_filter.releases_color} stroke={chart_filter.releases_color}/>
+														:
+														<Area type="monotone" dataKey="Wydania" fill={chart_filter.releases_color} stroke={chart_filter.releases_color} strokeDasharray="5 5"/>
+													:
+													Number(chart_filter.releases_continuous_type) !== 2 ?
+														<Line type="monotone" dataKey="Wydania" stroke={chart_filter.releases_color} />
+														:
+														<Line type="monotone" dataKey="Wydania" stroke={chart_filter.releases_color} strokeDasharray="5 5" />
+												:
+												<Bar dataKey="Wydania" barSize={20} fill={chart_filter.releases_color} />
+										)
+									}
+									{
+										chart_filter.order && (
+											Number(chart_filter.order_show_chart_type) !== 2 ?
+												Number(chart_filter.order_filling_type) !== 2 ?
+													Number(chart_filter.order_continuous_type) !== 2 ?
+														<Area type="monotone" dataKey="Zamowienia" fill={chart_filter.order_color} stroke={chart_filter.order_color}/>
+														:
+														<Area type="monotone" dataKey="Zamowienia"  stroke={chart_filter.order_color} fill={chart_filter.order_color} strokeDasharray="5 5"/>
+													:
+													Number(chart_filter.order_continuous_type) !== 2 ?
+														<Line type="monotone" dataKey="Zamowienia" stroke={chart_filter.order_color} />
+														:
+														<Line type="monotone" dataKey="Zamowienia" stroke={chart_filter.order_color} strokeDasharray="5 5" />
+												:
+												<Bar dataKey="Zamowienia" barSize={20} fill={chart_filter.order_color} />
+										)
+									}
+
 								</ComposedChart>
 							</ResponsiveContainer>
 						</Grid>
@@ -263,7 +329,7 @@ const WarehouseOperationGraph = props => {
 									<FormInput name="supply_filling_type" type="single_without_empty" value={chart_filter.supply_filling_type} handleChange={handleChangeFilter} list={filling_type_list} disabled={!chart_filter.supply || chart_filter.supply_show_chart_type === '2'} />
 								</Grid>
 								<Grid item xs={2}>
-
+									<ColorBox name="supply_color" value={chart_filter.supply_color} handleChange={handleChangeFilter}/>
 								</Grid>
 							</Grid>
 							<Grid container spacing={2}>
@@ -280,7 +346,7 @@ const WarehouseOperationGraph = props => {
 									<FormInput name="received_filling_type" type="single_without_empty" value={chart_filter.received_filling_type} handleChange={handleChangeFilter} list={filling_type_list} disabled={!chart_filter.received || chart_filter.received_show_chart_type === '2'} />
 								</Grid>
 								<Grid item xs={2}>
-
+									<ColorBox name="received_color" value={chart_filter.received_color} handleChange={handleChangeFilter}/>
 								</Grid>
 							</Grid>
 							<Grid container spacing={2}>
@@ -297,7 +363,7 @@ const WarehouseOperationGraph = props => {
 									<FormInput name="releases_filling_type" type="single_without_empty" value={chart_filter.releases_filling_type} handleChange={handleChangeFilter} list={filling_type_list} disabled={!chart_filter.releases || chart_filter.releases_show_chart_type === '2'} />
 								</Grid>
 								<Grid item xs={2}>
-
+									<ColorBox name="releases_color" value={chart_filter.releases_color} handleChange={handleChangeFilter}/>
 								</Grid>
 							</Grid>
 							<Grid container spacing={2}>
@@ -314,7 +380,7 @@ const WarehouseOperationGraph = props => {
 									<FormInput name="order_filling_type" type="single_without_empty" value={chart_filter.order_filling_type} handleChange={handleChangeFilter} list={filling_type_list} disabled={!chart_filter.order || chart_filter.order_show_chart_type === '2'} />
 								</Grid>
 								<Grid item xs={2}>
-
+									<ColorBox name="order_color" value={chart_filter.order_color} handleChange={handleChangeFilter}/>
 								</Grid>
 							</Grid>
 						</Grid>

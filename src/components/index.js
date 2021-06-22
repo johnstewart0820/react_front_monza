@@ -16,3 +16,4 @@ export { default as Table } from './Table';
 export { default as TableFilters } from './TableFilters';
 export { default as FormSelect } from './FormSelect';
 export { default as FormInputC } from './FormInputC';
+export { default as ColorBox } from './ColorBox';
