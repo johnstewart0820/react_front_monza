@@ -24,47 +24,11 @@ const WarehouseOperationGraph = props => {
 	const classes = useStyles();
 	const { addToast } = useToasts()
 	const breadcrumb = ['Monitorowanie poziomu zapasów', 'Operacje magazynowe', 'Generuj wykres', 'Wygenerowany wykres'];
-	const [data, setData] = useState({ date_from: null, date_to: null, assortment: [], duration: '', value_quantity: '', chart_type: 'mixed', });
-	const [chart_filter, setChartFilter] = useState({ supply_show_chart_type: 1, received_show_chart_type: '1', supply_color: '#00ff00', received_color: '#000000', releases_color: '#00ffff', order_color: '#ff0000'  });
+	const [data, setData] = useState({ date_from: null, date_to: null, assortment: [], duration: '', value_quantity: '', });
+	const [chart_filter, setChartFilter] = useState({ supply_color: '#00ff00', received_color: '#000000', releases_color: '#00ffff', order_color: '#ff0000', chart_type: 'mixed'  });
 	const [listInfo, setListInfo] = useState({ assortment: [], warehouse: [], unit: [], measure_unit: [], contractor: [] });
 
 	const [table_data, setTableData] = useState([
-		{
-			name: 'Page A',
-			uv: 590,
-			pv: 800,
-			amt: 1400,
-		},
-		{
-			name: 'Page B',
-			uv: 868,
-			pv: 967,
-			amt: 1506,
-		},
-		{
-			name: 'Page C',
-			uv: 1397,
-			pv: 1098,
-			amt: 989,
-		},
-		{
-			name: 'Page D',
-			uv: 1480,
-			pv: 1200,
-			amt: 1228,
-		},
-		{
-			name: 'Page E',
-			uv: 1520,
-			pv: 1108,
-			amt: 1100,
-		},
-		{
-			name: 'Page F',
-			uv: 1400,
-			pv: 680,
-			amt: 1700,
-		},
 	]);
 	const value_quantity_list = [
 		{ label: 'Wartościowo', value: 'value' },
@@ -104,10 +68,15 @@ const WarehouseOperationGraph = props => {
 	const handleChangeFilter = (name, value) => {
 		if (name === 'chart_type') {
 			if (value === 'bar') {
-				setChartFilter({ ...chart_filter, supply_show_chart_type: '1' });
+				setChartFilter({ ...chart_filter, supply_show_chart_type: '2', releases_show_chart_type: '2', received_show_chart_type: '2', order_show_chart_type: '2', chart_type: 'bar' });
+			} else if (value === 'line') {
+				setChartFilter({ ...chart_filter, supply_show_chart_type: '1', releases_show_chart_type: '1', received_show_chart_type: '1', order_show_chart_type: '1', chart_type: 'line' });
+			} else {
+				setChartFilter({ ...chart_filter, chart_type: 'mixed' });
 			}
+		} else {
+			setChartFilter({ ...chart_filter, [name]: value });
 		}
-		setChartFilter({ ...chart_filter, [name]: value });
 	}
 
 	const handleBack = () => {
@@ -133,7 +102,6 @@ const WarehouseOperationGraph = props => {
 		_temp.warehouse = localStorage.getItem('warehouse');
 		_temp.date_from = localStorage.getItem('date_from', null);
 		_temp.date_to = localStorage.getItem('date_to', null);
-		_temp.chart_type = 'mixed';
 		setData(_temp);
 	}, [listInfo.assortment]);
 
@@ -147,10 +115,17 @@ const WarehouseOperationGraph = props => {
 			})
 	}, [data]);
 
+	const getAssortmentName = () => {
+		let arr = [];
+		listInfo.assortment.length > 0 && data.assortment.map((item, index) => {
+			arr.push(listInfo.assortment[item - 1].name);
+		});
+		return arr.join(', ');
+	}
 	return (
 		<>
 			<BreadcrumbBack list={breadcrumb} back_url="/warehouse_operation" />
-			<MultiDetail button_name="Wróć do operacji magazynowej" handleButton={handleBack}>
+			<MultiDetail button_name="Generuj nowy wykres" handleButton={handleBack}>
 				<React.Fragment>
 					<Grid container spacing={3}>
 						<Grid item xs={3}>
@@ -185,11 +160,13 @@ const WarehouseOperationGraph = props => {
 						</Grid>
 						<Grid item xs={12}>
 							<Typography variant="h6" className={classes.title_6}>
-								Wielkościowy wykraz operacji magazynowych w ujęciu miesięcznym w okresie od {moment.getStringFromDateFormat(data.date_from)} do {moment.getStringFromDateFormat(data.date_to)} dla asortymentu
+								{data.value_quantity === 'value' ? 'Wartościowy wykres operacji magazynowych ' : 'Wielkościowy wykres opracji magazynowych '}
+								{data.duration === 'daily' ? 'w ujęciu dziennym ' : 
+									data.duration === 'weekly' ? 'w ujęciu tygodniowym ' : 'w ujęciu miesiecznym '
+								}
+									w okresie od {moment.getStringFromDateFormat(data.date_from)} do {moment.getStringFromDateFormat(data.date_to)} {'dla asortymentów: '}
 								{
-									listInfo.assortment.length > 0 && data.assortment.map((item, index) => (
-										' ' + listInfo.assortment[item - 1].name
-									))
+									getAssortmentName()
 								}
 							</Typography>
 						</Grid>
@@ -208,7 +185,7 @@ const WarehouseOperationGraph = props => {
 								>
 									<CartesianGrid stroke="#f5f5f5" />
 									<XAxis dataKey="name" scale="band" />
-									<YAxis label={{ value: 'Index', angle: -90, position: 'insideLeft' }} />
+									<YAxis label={{ value: 'Wielkość [J.H]', angle: -90, position: 'insideLeft' }} />
 									<Tooltip />
 									<Legend />
 									{
@@ -233,16 +210,16 @@ const WarehouseOperationGraph = props => {
 											Number(chart_filter.received_show_chart_type) !== 2 ?
 												Number(chart_filter.received_filling_type) !== 2 ?
 													Number(chart_filter.received_continuous_type) !== 2 ?
-														<Area type="monotone" dataKey="Przyęcia" fill={chart_filter.received_color} stroke={chart_filter.received_color}/>
+														<Area type="monotone" dataKey="Przyjęcia" fill={chart_filter.received_color} stroke={chart_filter.received_color}/>
 														:
-														<Area type="monotone" dataKey="Przyęcia" fill={chart_filter.received_color} stroke={chart_filter.received_color} strokeDasharray="5 5"/>
+														<Area type="monotone" dataKey="Przyjęcia" fill={chart_filter.received_color} stroke={chart_filter.received_color} strokeDasharray="5 5"/>
 													:
 													Number(chart_filter.received_continuous_type) !== 2 ?
-														<Line type="monotone" dataKey="Przyęcia" stroke={chart_filter.received_color} />
+														<Line type="monotone" dataKey="Przyjęcia" stroke={chart_filter.received_color} />
 														:
-														<Line type="monotone" dataKey="Przyęcia" stroke={chart_filter.received_color} strokeDasharray="5 5" />
+														<Line type="monotone" dataKey="Przyjęcia" stroke={chart_filter.received_color} strokeDasharray="5 5" />
 												:
-												<Bar dataKey="Przyęcia" barSize={20} fill={chart_filter.received_color} />
+												<Bar dataKey="Przyjęcia" barSize={20} fill={chart_filter.received_color} />
 										)
 									}
 									{
@@ -267,16 +244,16 @@ const WarehouseOperationGraph = props => {
 											Number(chart_filter.order_show_chart_type) !== 2 ?
 												Number(chart_filter.order_filling_type) !== 2 ?
 													Number(chart_filter.order_continuous_type) !== 2 ?
-														<Area type="monotone" dataKey="Zamowienia" fill={chart_filter.order_color} stroke={chart_filter.order_color}/>
+														<Area type="monotone" dataKey="Zamówienia" fill={chart_filter.order_color} stroke={chart_filter.order_color}/>
 														:
-														<Area type="monotone" dataKey="Zamowienia"  stroke={chart_filter.order_color} fill={chart_filter.order_color} strokeDasharray="5 5"/>
+														<Area type="monotone" dataKey="Zamówienia"  stroke={chart_filter.order_color} fill={chart_filter.order_color} strokeDasharray="5 5"/>
 													:
 													Number(chart_filter.order_continuous_type) !== 2 ?
-														<Line type="monotone" dataKey="Zamowienia" stroke={chart_filter.order_color} />
+														<Line type="monotone" dataKey="Zamówienia" stroke={chart_filter.order_color} />
 														:
-														<Line type="monotone" dataKey="Zamowienia" stroke={chart_filter.order_color} strokeDasharray="5 5" />
+														<Line type="monotone" dataKey="Zamówienia" stroke={chart_filter.order_color} strokeDasharray="5 5" />
 												:
-												<Bar dataKey="Zamowienia" barSize={20} fill={chart_filter.order_color} />
+												<Bar dataKey="Zamówienia" barSize={20} fill={chart_filter.order_color} />
 										)
 									}
 
@@ -320,7 +297,7 @@ const WarehouseOperationGraph = props => {
 									<FormInput title="Zapas" name="supply" type="check_box" value={chart_filter.supply} handleChange={handleChangeFilter} />
 								</Grid>
 								<Grid item xs={2}>
-									<FormInput name="supply_show_chart_type" type="single_without_empty" value={chart_filter.supply_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.supply} />
+									<FormInput name="supply_show_chart_type" type="single_without_empty" value={chart_filter.supply_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.supply || chart_filter.chart_type !== 'mixed'} />
 								</Grid>
 								<Grid item xs={2}>
 									<FormInput name="supply_continuous_type" type="single_without_empty" value={chart_filter.supply_continuous_type} handleChange={handleChangeFilter} list={continuous_type_list} disabled={!chart_filter.supply || chart_filter.supply_show_chart_type === '2'} />
@@ -334,10 +311,10 @@ const WarehouseOperationGraph = props => {
 							</Grid>
 							<Grid container spacing={2}>
 								<Grid item xs={2}>
-									<FormInput title="Przyęcia" name="received" type="check_box" value={chart_filter.received} handleChange={handleChangeFilter} />
+									<FormInput title="Przyjęcia" name="received" type="check_box" value={chart_filter.received} handleChange={handleChangeFilter} />
 								</Grid>
 								<Grid item xs={2}>
-									<FormInput name="received_show_chart_type" type="single_without_empty" value={chart_filter.received_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.received} />
+									<FormInput name="received_show_chart_type" type="single_without_empty" value={chart_filter.received_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.received || chart_filter.chart_type !== 'mixed'} />
 								</Grid>
 								<Grid item xs={2}>
 									<FormInput name="received_continuous_type" type="single_without_empty" value={chart_filter.received_continuous_type} handleChange={handleChangeFilter} list={continuous_type_list} disabled={!chart_filter.received || chart_filter.received_show_chart_type === '2'} />
@@ -354,7 +331,7 @@ const WarehouseOperationGraph = props => {
 									<FormInput title="Wydania" name="releases" type="check_box" value={chart_filter.releases} handleChange={handleChangeFilter} />
 								</Grid>
 								<Grid item xs={2}>
-									<FormInput name="releases_show_chart_type" type="single_without_empty" value={chart_filter.releases_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.releases} />
+									<FormInput name="releases_show_chart_type" type="single_without_empty" value={chart_filter.releases_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.releases || chart_filter.chart_type !== 'mixed'} />
 								</Grid>
 								<Grid item xs={2}>
 									<FormInput name="releases_continuous_type" type="single_without_empty" value={chart_filter.releases_continuous_type} handleChange={handleChangeFilter} list={continuous_type_list} disabled={!chart_filter.releases || chart_filter.releases_show_chart_type === '2'} />
@@ -368,10 +345,10 @@ const WarehouseOperationGraph = props => {
 							</Grid>
 							<Grid container spacing={2}>
 								<Grid item xs={2}>
-									<FormInput title="Zamowienia" name="order" type="check_box" value={chart_filter.order} handleChange={handleChangeFilter} />
+									<FormInput title="Zamówienia" name="order" type="check_box" value={chart_filter.order} handleChange={handleChangeFilter} />
 								</Grid>
 								<Grid item xs={2}>
-									<FormInput name="order_show_chart_type" type="single_without_empty" value={chart_filter.order_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.order} />
+									<FormInput name="order_show_chart_type" type="single_without_empty" value={chart_filter.order_show_chart_type} handleChange={handleChangeFilter} list={chart_show_type_list} disabled={!chart_filter.order || chart_filter.chart_type !== 'mixed'} />
 								</Grid>
 								<Grid item xs={2}>
 									<FormInput name="order_continuous_type" type="single_without_empty" value={chart_filter.order_continuous_type} handleChange={handleChangeFilter} list={continuous_type_list} disabled={!chart_filter.order || chart_filter.order_show_chart_type === '2'} />

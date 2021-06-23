@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import { makeStyles } from '@material-ui/styles';
 import { SwatchesPicker } from 'react-color';
+import SwatchPicker from 'components/SwatchPicker';
 
 const useStyles = makeStyles(theme => ({
   color_box: {
@@ -9,9 +10,6 @@ const useStyles = makeStyles(theme => ({
     height: '38px',
     marginTop: '12px'
   },
-  swatches_picker: {
-    position: 'absolute'
-  }
 }));
 
 const ColorBox = props => {
@@ -22,7 +20,7 @@ const ColorBox = props => {
   return (
     <React.Fragment>
       <div className={classes.color_box} style={{backgroundColor: value}} onClick={() => setOpen(!open)}/>
-      {open && <SwatchesPicker className={classes.swatches_picker} value={value} onChange={ (e) => {handleChange(name, e.hex)} } />}
+      {open && <SwatchPicker value={value} handleChange={ (e) => {handleChange(name, e)} } />}
     </React.Fragment>
   );
 };
