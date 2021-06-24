@@ -39,6 +39,9 @@ const Auth = {
     },
 	
     validateToken: () => API.get(`/user/validate_token`)
+			.catch( (reason: AxiosError) => {
+				return {'code': reason.response.status}
+			})
 }
 
 export default Auth;

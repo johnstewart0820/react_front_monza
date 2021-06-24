@@ -47,6 +47,9 @@ export const AuthContextProvider = () => {
 					if ( data.code === 200 ) {
 						setLogged( true );
 						setLoading( false );
+					} else {
+						setLogged( false );
+						setLoading( false );
 					}
 				})
 			: setLoading( false );
